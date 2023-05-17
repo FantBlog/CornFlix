@@ -10,9 +10,9 @@ class Movie(models.Model):
     title = models.CharField(max_length=100)
     overview = models.TextField()
     popularity = models.FloatField()
-    poster_path = models.CharField(max_length=200)
-    youtube = models.CharField(max_length=200)
-    release_date = models.DateField()
+    poster_path = models.CharField(null=True, max_length=200)
+    youtube = models.CharField(null=True, max_length=200)
+    release_date = models.DateField(null=True)
 
     genres = models.ManyToManyField(Genre, related_name="genres")
     like_users = models.ManyToManyField(
