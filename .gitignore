@@ -1,5 +1,7 @@
 # backserver
 
+cosine_sim.npy
+
 ### Django ###
 *.log
 *.pot
