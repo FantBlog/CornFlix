@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 
 import userModule from '@/store/modules/user.js';
-import articleModule from '@/store/modules/article.js';
+import movieModule from '@/store/modules/movie.js';
 
 Vue.use(Vuex);
 
@@ -16,6 +16,6 @@ export default new Vuex.Store({
   ],
   modules: {
     user: userModule,
-    article: articleModule,
+    movie: movieModule,
   },
 });
