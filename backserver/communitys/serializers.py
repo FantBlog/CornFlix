@@ -8,11 +8,10 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class PostSerializer(serializers.ModelSerializer):
+class PostListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = "__all__"
-        read_only_fields = ("like_users",)
+        fields = ('id', 'title', 'content')
 
 
 class PosDetailSerializer(serializers.ModelSerializer):
@@ -29,7 +28,7 @@ class PosDetailSerializer(serializers.ModelSerializer):
 
 
 class CommentDetailSerializer(serializers.ModelSerializer):
-    post = PostSerializer()
+    post = PostListSerializer()
 
     class Meta:
         model = Comment
