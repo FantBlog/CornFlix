@@ -11,13 +11,13 @@ from .serializers import *
 def post_list(request):
     if request.method == "GET":
         posts = Post.objects.all()
-        serializer = PostSerializer(posts, many=True)
+        serializer = PostListSerializer(posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     elif request.method == "POST":
-        serializer = PostSerializer(data=request.data)
+        serializer = PostListSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save()
+            serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
@@ -30,7 +30,7 @@ def post_detail(request, post_pk):
 
     elif request.method == "PUT":
         post = Post.objects.get(pk=post_pk)
-        serializer = PostSerializer(instance=Post, data=request.data)
+        serializer = PostListSerializer(instance=Post, data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
