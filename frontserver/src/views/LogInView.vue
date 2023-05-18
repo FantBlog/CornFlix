@@ -14,31 +14,24 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   data() {
     return {
       username: '',
       password: ''
-    };
+    }
   },
   methods: {
     logIn(event) {
       event.preventDefault();
       
-      axios.post('/api/login', {
-        username: this.username,
-        password: this.password
-      })
-      .then(response => {
-        // 로그인 성공 시 처리할 로직 작성
-        console.log(response.data);
-      })
-      .catch(error => {
-        // 로그인 실패 시 처리할 로직 작성
-        console.error(error);
-      });
+      const username = this.username
+      const password = this.password
+
+      const payload = {
+        username, password
+      }
+      this.$store.dispatch('logIn', payload)
     }
   }
 }
