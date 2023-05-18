@@ -45,7 +45,7 @@ export default {
         .catch((err) => console.log(err));
     },
     logOut(context) {
-      context.commit('SET_TOKEN', null);
+      context.commit('SAVE_TOKEN', null);
     },
   },
 };
