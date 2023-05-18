@@ -8,11 +8,10 @@ from rest_framework import status
 import datetime
 from .models import Movie, Review
 from .serializers import *
-from .searcher import get_recommendations
+from .relate_movie import get_relate_movies
 
 
 @api_view(["GET", "POST"])
-@permission_classes([IsAuthenticated])
 def movie_list(request):
     if request.method == "GET":
         movies = get_list_or_404(Movie)
@@ -87,9 +86,11 @@ def review_detail(request, review_pk):
 
 
 @api_view(["GET"])
-def recommend_movie_list(request, search):
+def relate_movie_list(request, movie_pk):
     if request.method == "GET":
-        title_list = get_recommendations(search)
+        movie = get_object_or_404(Movie, pk=movie_pk)
+        title = movie.title
+        title_list = get_relate_movies(title)
         # 결과 순서를 저장
         ordering = Case(
             *[When(title=title, then=pos) for pos, title in enumerate(title_list)]
@@ -102,7 +103,7 @@ def recommend_movie_list(request, search):
 
 
 @api_view(["GET"])
-def like_recommend_movie_list(request, genre_id):
+def genre_movie_list(request, genre_id):
     if request.method == "GET":
         genres = [genre_id]
         movie = Movie.objects.filter(genres__in=genres).order_by("-score")[:20]
