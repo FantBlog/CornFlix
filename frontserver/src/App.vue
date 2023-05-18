@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import HeaderLayout from '@/layout/HeaderLayout.vue';
-import FooterLayout from '@/layout/FooterLayout.vue';
+import HeaderLayout from '@/layout/HeaderLayout.vue'
+import FooterLayout from '@/layout/FooterLayout.vue'
 
 export default {
   components: {
@@ -19,7 +19,7 @@ export default {
     return{
     }
   },
-};
+}
 </script>
 
 <style>
@@ -28,21 +28,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: rgb(0, 0, 0);
+  /* color: rgb(230, 230, 230); */
 }
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-
 
 </style>
