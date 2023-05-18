@@ -1,6 +1,8 @@
 import api from '@/api/base.js'
 import { fetchLogin, fetchSignup } from '@/api/user/index.js'
 
+import router from '@/router'
+
 export default {
   state: {
     token: null,
@@ -41,6 +43,7 @@ export default {
       fetchLogin({ username, password })
         .then((res) => {
           context.commit('SAVE_TOKEN', res.data.key)
+          router.push({name:'main'})
         })
         .catch((err) => console.log(err))
     },
