@@ -25,7 +25,7 @@ def post_list(request):
 def post_detail(request, post_pk):
     if request.method == "GET":
         post = Post.objects.get(pk=post_pk)
-        serializer = PostSerializer(post)
+        serializer = PosDetailSerializer(post)
         return Response(serializer.data)
 
     elif request.method == "PUT":
