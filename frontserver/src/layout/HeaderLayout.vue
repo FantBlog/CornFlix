@@ -1,14 +1,18 @@
 <template>
-  <nav>
-    <router-link :to="{ name: 'main' }">index</router-link>
-    <router-link :to="{ name: 'movies' }">Home</router-link>
-    <router-link :to="{ name: 'commu' }">Community</router-link>
-    <router-link :to="{ name: 'profile' }">Profile</router-link>
+  <header class="header bg-dark">
+    <nav>
+      <router-link :to="{ name: 'main' }">index</router-link>
+      <router-link :to="{ name: 'movies' }">Home</router-link>
+      <router-link :to="{ name: 'commu' }">Community</router-link>
+      <router-link :to="{ name: 'profile' }">Profile</router-link>
 
-    <router-link v-if="!isLogin" :to="{ name: 'signup' }">SignUp</router-link>
-    <router-link v-if="!isLogin" :to="{ name: 'login' }">LogIn</router-link>
-    <button v-if="isLogin" type="submit" @click="logOut">로그아웃</button>
-  </nav>
+      <router-link v-if="!isLogin" :to="{ name: 'signup' }">SignUp</router-link>
+      <router-link v-if="!isLogin" :to="{ name: 'login' }">LogIn</router-link>
+      <a href="">
+      <button v-if="isLogin" type="submit" @click="logOut">로그아웃</button>
+      </a>
+    </nav>
+  </header>
 </template>
 
 <script>

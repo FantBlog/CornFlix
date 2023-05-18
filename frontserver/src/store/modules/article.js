@@ -6,7 +6,7 @@ export default {
   },
   mutations: {
     GET_ARTICLES(state, articles) {
-      state.articles = articles;
+      state.articles = articles
     },
   },
   actions: {
@@ -14,11 +14,11 @@ export default {
       fetchArticles()
         .then((res) => {
           // console.log(res, context)
-          context.commit('GET_ARTICLES', res.data);
+          context.commit('GET_ARTICLES', res.data)
         })
         .catch((err) => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
   },
-};
+}
