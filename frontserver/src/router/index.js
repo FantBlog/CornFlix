@@ -6,6 +6,7 @@ import MoviesView from '@/views/MoviesView.vue'
 import CommunityView from '@/views/CommunityView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import LogInView from '@/views/LogInView.vue'
+import ProfileView from '@/views/ProfileView.vue'
 
 import NotFoundErr from '@/views/NotFoundErr'
 
@@ -45,6 +46,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: LogInView,
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: ProfileView,
   },
   {
     path: '*',
