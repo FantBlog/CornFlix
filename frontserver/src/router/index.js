@@ -4,7 +4,8 @@ import VueRouter from 'vue-router'
 import store from '@/store/index';
 import MainView from '@/views/MainView.vue'
 import MoviesView from '@/views/MoviesView.vue'
-import CommunityView from '@/views/CommunityView.vue'
+import CommunityView from '@/views/community/CommunityView.vue'
+import CreatePostView from '@/views/community/CreatePostView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import LogInView from '@/views/LogInView.vue'
 import ProfileView from '@/views/ProfileView.vue'
@@ -17,11 +18,6 @@ const routes = [
   {
     path: '/',
     redirect: '/main'
-  },
-  {
-    path: '/notfound',
-    name: 'notfound',
-    component: NotFoundErr
   },
   {
     path: '/main',
@@ -37,6 +33,11 @@ const routes = [
     path: '/commu',
     name: 'commu',
     component: CommunityView
+  },
+  {
+    path: '/create',
+    name: 'createPost',
+    component: CreatePostView
   },
   {
     path: '/signup',
@@ -55,7 +56,8 @@ const routes = [
   },
   {
     path: '*',
-    redirect: '/notfound',
+    name: 'notfound',
+    component: NotFoundErr
   },
 
 ]
