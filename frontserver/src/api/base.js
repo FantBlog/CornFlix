@@ -6,7 +6,7 @@ const api = axios.create({
   baseURL: API_URL,
 });
 
-// api.get('/api/v1/articles')
+// api.get('/api/v1/movies')
 
 // api token 설정 메소드 정의 할당...
 api.setToken = function (token) {
