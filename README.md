@@ -16,7 +16,7 @@
 
 - 2023.05.16 ~ 2023.05.26(총10일)
 
-[Final 관통프로젝트 일지](https://www.notion.so/PJT-fcd3fd062f4846aa92f044197db2ef6c?pvs=4)
+[Final 관통프로젝트 일지](https://cornflix.notion.site/PJT-fcd3fd062f4846aa92f044197db2ef6c)
 
 <br>
 
