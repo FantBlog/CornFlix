@@ -8,7 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 
 def create_cosine():
-    data = pd.read_json("./movies/src/movies.json")
+    data = pd.read_json("./movies/src/raw_movies.json")
 
     data["overview"] = data["overview"].fillna("")
 
@@ -20,7 +20,7 @@ def create_cosine():
     np.save("./movies/src/cosine_sim.npy", cosine_sim)
 
 
-def get_recommendations(title):
+def get_relate_movies(title):
     try:
         cosine_sim = np.load("./movies/src/cosine_sim.npy")
     except:
