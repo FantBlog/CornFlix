@@ -34,7 +34,7 @@ export default {
           console.log(err);
         });
     },
-    login(context, payload) {
+    logIn(context, payload) {
       const username = payload.username;
       const password = payload.password;
 
@@ -44,7 +44,7 @@ export default {
         })
         .catch((err) => console.log(err));
     },
-    logout(context) {
+    logOut(context) {
       context.commit('SET_TOKEN', null);
     },
   },
