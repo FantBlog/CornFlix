@@ -8,7 +8,7 @@
         <router-link :to="{ name: 'movies' }">Home</router-link><br>
         <router-link :to="{ name: 'commu' }">Community</router-link>
         </div>
-        <img @click="toggleOnOff" alt="home img" src="@/assets/home.png">
+        <img @click="toggleOnOff" alt="home img" src="@/assets/popcorn/home.png">
     </div>
 </template>
 
