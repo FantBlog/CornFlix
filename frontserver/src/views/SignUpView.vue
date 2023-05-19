@@ -1,7 +1,7 @@
 <template>
-  <div class="background-container">
-    <div class="container d-flex align-items-center justify-content-center" style="height: 100%;">
-      <div class="card" style="width: 500px;">
+  <div class="background-container d-flex align-items-center justify-content-center mx-0">
+    <!-- <div class="" style="height: 100%;"> -->
+      <div class="card">
         <div class="card-body">
           <h1 class="text-center">Sign Up Page</h1>
           <form @submit.prevent="signUp">
@@ -21,7 +21,7 @@
           </form>
         </div>
       </div>
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 
@@ -47,12 +47,12 @@ export default {
 
 <style scoped>
 .background-container {
-  position: fixed;
-  top: 0;
+  /* position: fixed; */
+  /* top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  z-index: -1;
+  height: 100%; */
+  /* z-index: 0; */
   background-image: url("~@/assets/popcorn.png");
   background-size: cover;
 }
