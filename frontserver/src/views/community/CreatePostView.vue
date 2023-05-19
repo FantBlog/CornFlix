@@ -14,7 +14,7 @@
 <script>
 
 export default {
-  name: 'CreateView',
+  name: 'CreatePostView',
   data() {
     return {
       title: null,

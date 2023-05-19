@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     posts() {
-      return this.$store.state.community.posts;
+      return this.$store.state.post.posts;
     },
   },
   methods:{
