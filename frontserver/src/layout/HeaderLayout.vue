@@ -1,5 +1,5 @@
 <template>
-  <header class="header bg-dark">
+  <header class="header bg-dark fixed-top">
     <nav>
       <router-link :to="{ name: 'main' }">index</router-link>
       <router-link :to="{ name: 'movies' }">Home</router-link>
