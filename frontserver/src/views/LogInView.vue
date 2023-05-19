@@ -59,7 +59,7 @@ export default {
   width: 100%;
   height: 100%; */
   /* z-index: 0; */
-  background-image: url("~@/assets/popcorn.png");
+  background-image: url("~@/assets/popcorn/popcorn.png");
   background-size: cover;
 }
 
