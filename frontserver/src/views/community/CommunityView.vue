@@ -13,9 +13,6 @@ export default {
     postList,
   },
   computed:{
-    isLogin() {
-      return this.$store.getters.isLogin // 로그인 여부
-    }
   },
   created() {
     this.getPosts()

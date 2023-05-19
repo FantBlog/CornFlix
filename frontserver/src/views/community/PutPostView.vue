@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>게시글 작성</h1>
-    <form @submit.prevent="createPost">
+    <h1>게시글 수정</h1>
+    <form @submit.prevent="putPost">
       <label for="title">제목 : </label>
       <input type="text" id="title" v-model.trim="title"><br>
       <label for="content">내용 : </label>
@@ -14,7 +14,7 @@
 <script>
 
 export default {
-  name: 'CreatePostView',
+  name: 'PutPostView',
   data() {
     return {
       title: null,
@@ -22,7 +22,8 @@ export default {
     }
   },
   methods: {
-    createPost() {
+    putPost() {
+      const post_id = this.$route.params.id
       const title = this.title
       const content = this.content
 
@@ -35,11 +36,10 @@ export default {
       }
       
       const payload = {
-        title, content
+        post_id, title, content
       }
 
-      this.$store.dispatch('CreatePosts', payload)
-      // 글 작성이후 글 있는곳으로 라우터 이동
+      this.$store.dispatch('putDetailPost', payload)
     }
   }
 }
