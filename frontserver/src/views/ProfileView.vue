@@ -1,10 +1,14 @@
 <template>
-  <div></div>
+  <div>
+    <UserProfile/>
+  </div>
 </template>
 
 <script>
-export default {
+import UserProfile from '@/components/profile/UserProfile.vue';
 
+export default {
+    components: { UserProfile }
 }
 </script>
 
