@@ -15,7 +15,7 @@ class Movie(models.Model):
     release_date = models.DateField(null=True)
     vote_average = models.FloatField()
     vote_count = models.IntegerField()
-    score = models.IntegerField()
+    score = models.FloatField()
 
     genres = models.ManyToManyField(Genre, related_name="genres")
     like_users = models.ManyToManyField(
