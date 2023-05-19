@@ -1,5 +1,5 @@
 from django.shortcuts import get_list_or_404, get_object_or_404
-from django.db.models import Case, When
+from django.db.models import Case, When, F, FloatField
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.decorators import permission_classes
@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 import datetime
 from .models import Movie, Review
+from accounts.models import User
 from .serializers import *
 from .relate_movie import get_relate_movies
 
@@ -123,3 +124,41 @@ def recent_movie_list(request):
         serializer = MovieListSerializer(movie, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+def recommend_movie_list(request):
+    if request.method == "GET":
+        defaultmovie = Movie.objects.order_by("-score")[:20]
+        defaultSerializer = MovieListSerializer(defaultmovie, many=True)
+
+        if request.user.is_authenticated:
+            # user = User.objects.get(user=request.user)
+            user = User.objects.get(username=request.user)
+            likemovies = user.like_movies.all()
+            data_list = list(likemovies.values_list("genres", flat=True))
+
+            likegenres = {}
+            totallike = 0
+            for genre in data_list:
+                likegenres.setdefault(genre, 0)
+                likegenres[genre] += 1
+                totallike += 1
+
+            if totallike == 0:
+                return Response(defaultSerializer.data, status=status.HTTP_200_OK)
+
+            likegenres = list(sorted(likegenres, key=lambda x: -likegenres[x]))
+
+            size = min(3, len(likegenres))
+            genres = likegenres[0:size]
+            movie = Movie.objects.filter(genres__in=genres)
+
+            newmovie = movie
+
+            serializers = MovieListSerializer(
+                newmovie.order_by("-score")[:20], many=True
+            )
+            return Response(serializers.data, status=status.HTTP_200_OK)
+
+        return Response(defaultSerializer.data, status=status.HTTP_200_OK)
