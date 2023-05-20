@@ -7,6 +7,7 @@ import userModule from '@/store/modules/user.js';
 import movieModule from '@/store/modules/movie.js';
 import postModule from '@/store/modules/post.js';
 import commentModule from '@/store/modules/comment.js';
+import profileModule from '@/store/modules/profile.js';
 
 Vue.use(Vuex);
 
@@ -21,5 +22,6 @@ export default new Vuex.Store({
     movie: movieModule,
     post: postModule,
     comment: commentModule,
+    profile: profileModule,
   },
 });
