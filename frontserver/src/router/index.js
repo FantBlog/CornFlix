@@ -10,7 +10,8 @@ import DetailPostView from '@/views/community/DetailPostView'
 import PutPostView from '@/views/community/PutPostView'
 import SignUpView from '@/views/SignUpView.vue'
 import LogInView from '@/views/LogInView.vue'
-import ProfileView from '@/views/ProfileView.vue'
+import ProfileView from '@/views/profile/ProfileView.vue'
+import MyProfileView from '@/views/profile/MyProfileView.vue'
 
 import NotFoundErr from '@/views/NotFoundErr'
 
@@ -52,7 +53,12 @@ const routes = [
     component: LogInView,
   },
   {
-    path: '/profile',
+    path: '/me/',
+    name: 'myprofile',
+    component: MyProfileView,
+  },
+  {
+    path: '/profile/:id',
     name: 'profile',
     component: ProfileView,
   },
