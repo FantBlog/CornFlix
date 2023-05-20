@@ -10,9 +10,17 @@ from .models import User
 @api_view(["GET"])
 def myprofile(request):
     if request.method == "GET":
-        print(request.user)
         user = User.objects.get(username=request.user)
         serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(["GET"])
+def myprofilereview(request):
+    if request.method == "GET":
+        user = User.objects.get(username=request.user)
+        reviews = user.review_set.all()
+
+        serializer = UserReviewSerializer(reviews, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 @api_view(["GET"])
@@ -20,6 +28,15 @@ def profile(request, user_pk):
     if request.method == "GET":
         user = User.objects.get(pk=user_pk)
         serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(["GET"])
+def profilereview(request, user_pk):
+    if request.method == "GET":
+        user = User.objects.get(pk=user_pk)
+        reviews = user.review_set.all()
+
+        serializer = UserReviewSerializer(reviews, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

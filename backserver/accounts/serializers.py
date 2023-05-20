@@ -35,3 +35,12 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         exclude = ['last_login','is_superuser','is_staff','password','is_active','date_joined','groups','user_permissions']
+
+
+class UserReviewSerializer(serializers.ModelSerializer):
+    movie_title = serializers.CharField(source='movie.title')
+    movie_poster_path = serializers.CharField(source='movie.poster_path')
+
+    class Meta:
+        model = Review
+        fields = '__all__'
