@@ -16,7 +16,7 @@ export default {
     PostListItem,
   },
   props: {
-    posts: Object,
+    posts: Array,
   }
 }
 </script>

@@ -44,7 +44,7 @@ import ReviewListItem from '@/components/profile/ReviewListItem';
 export default {
   components: { ReviewListItem },
   props: {
-    reviews: Object,
+    reviews: Array,
   },
 }
 </script>
