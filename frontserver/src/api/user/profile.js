@@ -1,18 +1,18 @@
 import api from '@/api/base.js';
 
-const fetchProfile = function ({ username }) {
+const fetchProfile = function ({ user_name }) {
   return api({
     method: 'get',
-    url: `/user/profile/${username}/`
+    url: `/user/profile/${user_name}/`
   });
 };
 
-const fetchMyProfile = function () {
+const fetchReview = function ({ user_name }) {
   return api({
     method: 'get',
-    url: '/user/me/'
+    url: `/user/profile/${user_name}/review/`
   });
 };
 
 
-export { fetchProfile, fetchMyProfile };
+export { fetchProfile, fetchReview };
