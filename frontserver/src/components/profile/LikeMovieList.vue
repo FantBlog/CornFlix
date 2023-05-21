@@ -4,25 +4,9 @@
     <h3 class="text-start">좋아하는 영화</h3>
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <div class="row row-cols-3 row-cols-md-5 g-3">
-            <LikeMovieListItem v-for="movie in like_movies" :key="movie.id" :movie="movie" />
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="row row-cols-3 row-cols-md-5 g-3">
-            <div class="col">
-              <div class="card">
-                <img src="@/assets/poster/poster1.jpg" class="card-img-top" alt="...">
-                <div class="card-body">영화제목</div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card">
-                <img src="@/assets/poster/poster2.jpg" class="card-img-top" alt="...">
-                <div class="card-body">영화제목</div>
-              </div>
-            </div>
+        <div class="carousel-item" v-for="( movies, idx ) in dividedMovies" :key="idx" :class="{ 'active': idx === 0 }">
+          <div class=" row row-cols-3 row-cols-md-5 g-3">
+            <LikeMovieListItem v-for="movie in movies" :key="movie.id" :movie="movie" />
           </div>
         </div>
       </div>
@@ -44,7 +28,23 @@ import LikeMovieListItem from '@/components/profile/LikeMovieListItem.vue';
 export default {
   components: { LikeMovieListItem },
   props: {
-    like_movies: Object,
+    like_movies: Array,
+  },
+  computed: {
+    dividedMovies() {
+      if (this.like_movies === undefined) {
+        return null
+      }
+
+      const like_movies = this.like_movies
+      const chunks = []
+      let j = like_movies.length
+
+      for (let i = 0; i < j; i += 6) {
+        chunks.push(like_movies.slice(i, i + 6))
+      }
+      return chunks
+    },
   }
 }
 </script>
