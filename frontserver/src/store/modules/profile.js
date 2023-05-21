@@ -1,4 +1,4 @@
-import { fetchProfile, fetchMyProfile } from '@/api/user/profile';
+import { fetchProfile, fetchReview } from '@/api/user/profile';
 
 export default {
   state: {
@@ -8,11 +8,14 @@ export default {
     GET_PROFILE(state, profile) {
       state.profile = profile;
     },
+    GET_REVIEW(state, review) {
+      state.review = review;
+    },
   },
   actions: {
     getProfile(context, payload) {
-      const user_id = payload.user_id
-      fetchProfile({ user_id })
+      const user_name = payload.user_name
+      fetchProfile({ user_name })
         .then((res) => {
           // console.log(res, context)
           context.commit('GET_PROFILE', res.data);
@@ -21,11 +24,12 @@ export default {
           console.log(err);
         });
     },
-    getMyProfile(context) {
-      fetchMyProfile()
+    getReview(context, payload) {
+      const user_name = payload.user_name
+      fetchReview({ user_name })
         .then((res) => {
           // console.log(res, context)
-          context.commit('GET_PROFILE', res.data);
+          context.commit('GET_REVIEW', res.data);
         })
         .catch((err) => {
           console.log(err);

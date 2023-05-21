@@ -6,6 +6,7 @@ import router from '@/router'
 export default {
   state: {
     token: null,
+    username: '',
   },
   getters: {
     isLogin(state) {
@@ -20,6 +21,9 @@ export default {
   mutations: {
     SAVE_TOKEN(state, token) {
       state.token = token
+    },
+    SAVE_USERNAME(state, username) {
+      state.username = username
     },
   },
   actions: {
@@ -43,12 +47,14 @@ export default {
       fetchLogin({ username, password })
         .then((res) => {
           context.commit('SAVE_TOKEN', res.data.key)
-          router.push({name:'main'})
+          context.commit('SAVE_USERNAME', username)
+          router.push({ name: 'main' })
         })
         .catch((err) => console.log(err))
     },
     logOut(context) {
       context.commit('SAVE_TOKEN', null)
+      context.commit('SAVE_USERNAME', '')
     },
 
   },
