@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import store from '@/store/index';
 import MainView from '@/views/MainView.vue'
 import MoviesView from '@/views/MoviesView.vue'
+import MovieDetail from '@/components/movie/MovieDetail.vue'
 import CommunityView from '@/views/community/CommunityView.vue'
 import CreatePostView from '@/views/community/CreatePostView.vue'
 import DetailPostView from '@/views/community/DetailPostView'
@@ -30,8 +31,19 @@ const routes = [
   {
     path: '/movies',
     name: 'movies',
-    component: MoviesView
+    component: MoviesView,
+    children: [
+      {
+        path: ':movieId',
+        component: MovieDetail,
+      },
+    ],
   },
+{
+  path: '/movies/:movieId',
+  name: 'MovieDetail',
+  component: () => import('@/components/movie/MovieDetail.vue'),
+},
   {
     path: '/commu',
     name: 'commu',
