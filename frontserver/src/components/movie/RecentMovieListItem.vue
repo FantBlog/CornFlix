@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-list-item card" @click="goToDetailPage">
+  <div class="movie-list-item card p-0" @click="goToDetailPage">
     <img :src="movie.poster_path" alt="영화 포스터" class="card-img-top">
     <div class="card-body">
       <h5 class="card-title">{{ movie.title }}</h5>
@@ -30,12 +30,12 @@ export default {
   border-radius: 5px;
   text-align: center;
   cursor: pointer;
-  transition: all 0.3s; /* 트랜지션 추가 */
+  transition: all 0.3s;
 }
 
 .movie-list-item:hover {
-  transform: scale(1.1); /* 호버 시 크기 확대 */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* 호버 시 그림자 효과 */
+  transform: scale(1.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .card-img-top {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-lg">
     <h1>최신 영화들</h1>
     <div class="movie-list">
       <RecentMovieListItem v-for="movie in recentmovies" :key="movie.id" :movie="movie" />
@@ -23,17 +23,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .movie-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .movie-list-item {
-  width: 200px;
-  margin: 10px;
-  padding: 10px;
+  width: calc(20% - 20px);
   border: 1px solid #ccc;
   border-radius: 5px;
   text-align: center;
