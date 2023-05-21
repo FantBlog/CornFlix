@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="d-flex flex-column min-vh-100">
     <HeaderLayout />
-    <router-view class="flex-fill"/>
+    <router-view class="flex-fill" />
     <FooterLayout />
   </div>
 </template>
@@ -15,10 +15,6 @@ export default {
     HeaderLayout,
     FooterLayout,
   },
-  data() {
-    return{
-    }
-  },
 }
 </script>
 
@@ -31,5 +27,4 @@ export default {
   color: rgb(0, 0, 0);
   /* color: rgb(230, 230, 230); */
 }
-
 </style>

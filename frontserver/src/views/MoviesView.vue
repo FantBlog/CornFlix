@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <h1>Home page</h1>
-    <RecentMovieList/>
+    <RecentMovieList />
   </div>
 </template>
 
@@ -14,10 +14,7 @@ export default {
   components: {
     RecentMovieList,
   },
-  computed:{
-    isLogin() {
-      return this.$store.getters.isLogin // 로그인 여부
-    }
+  computed: {
   },
   created() {
     this.getRecentMovies()

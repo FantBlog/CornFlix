@@ -1,11 +1,7 @@
 <template>
   <div>
     <h1>최신 영화들</h1>
-    <RecentMovieListItem 
-    v-for="recentmovie in recentmovies" 
-    :key="recentmovie.id" 
-    :movie="recentmovie"
-    />
+    <RecentMovieListItem v-for="recentmovie in recentmovies" :key="recentmovie.id" :movie="recentmovie" />
   </div>
 </template>
 
@@ -18,12 +14,10 @@ export default {
   },
   computed: {
     recentmovies() {
-      return this.$store.state.movie.recentmovies;
+      return this.$store.state.movie.recentmovies
     },
   },
 }
 </script>
 
-<style>
-
-</style>
+<style></style>
