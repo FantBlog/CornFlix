@@ -162,3 +162,17 @@ def recommend_movie_list(request):
             return Response(serializers.data, status=status.HTTP_200_OK)
 
         return Response(defaultSerializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(["POST"])
+def like(request, movie_pk):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            movie = Movie.objects.get(pk=movie_pk)
+            if movie.like_users.filter(pk=request.user.pk).exists():
+                movie.like_users.remove(request.user)
+            else:
+                movie.like_users.add(request.user)
+            serializer = MovieDetailSerializer(movie)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
