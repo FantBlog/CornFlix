@@ -4,19 +4,19 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-          <img class="img-fluid" :src="movie.poster_path" alt="영화 포스터">
+          <img class="img-fluid" :src="movie?.poster_path" alt="영화 포스터">
         </div>
       </div>
     </div>
     <div class="wrap">
       <div id="likemovies" class="row">
         <div class="col-6 col-lg-4">
-          <img class="movie-poster" :src="movie.poster_path" alt="영화 포스터" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <img class="movie-poster" :src="movie?.poster_path" alt="영화 포스터" data-bs-toggle="modal" data-bs-target="#exampleModal">
         </div>
         <div class="col-6 col-lg-8">
-          <h1 class="text-center m-3"><b>{{ movie.title }}</b></h1>
-          <p>{{ movie.genre_id }}</p>
-          <p class="text-start mt-5">{{ movie.overview }}</p>
+          <h1 class="text-center m-3"><b>{{ movie?.title }}</b></h1>
+          <p>{{ movie?.genre_id }}</p>
+          <p class="text-start mt-5">{{ movie?.overview }}</p>
         </div>
       </div>
     </div>
@@ -34,10 +34,10 @@
         </div>
       </div>
     </div>
-    <iframe v-if="movie.youtube !== `null`"
+    <iframe v-if="movie?.youtube !== `null`"
       :width="1024"
       :height="600"
-      :src="`https://www.youtube.com/embed/${movie.youtube}?autoplay=1`"
+      :src="`https://www.youtube.com/embed/${movie?.youtube}?autoplay=1`"
       title="YouTube video player"
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     getDetailMovie() {
-      console.log(this.$route.params.movieId)
+      // console.log(this.$route.params.movieId)
       const payload = {
         movie_id : this.$route.params.movieId
       }
