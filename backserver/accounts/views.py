@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import *
-from .models import User
+from .models import User, UserProfile
 
 
 @api_view(["GET"])
@@ -13,6 +13,25 @@ def profile(request, user_name):
         user = User.objects.get(username=user_name)
         serializer = UserSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(["GET", "PUT"])
+def userprofile(request, user_name):
+    user = User.objects.get(username=user_name)
+    userprofile = get_object_or_404(UserProfile, user=user.pk)
+
+    if request.method == "GET":
+        serializer = UserProfileSerializer(userprofile)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    elif request.method == "PUT":
+        serializer = UserProfileSerializer(
+            instance=userprofile, data=request.data, files=request.FILES
+        )
+        print(request.FILES)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(user=user)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(["GET"])
