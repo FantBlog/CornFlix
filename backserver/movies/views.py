@@ -107,7 +107,7 @@ def relate_movie_list(request, movie_pk):
 def genre_movie_list(request, genre_id):
     if request.method == "GET":
         genres = [genre_id]
-        movie = Movie.objects.filter(genres__in=genres).order_by("-score")[:20]
+        movie = Movie.objects.filter(genres__in=genres).order_by("-score")[:15]
 
         serializer = MovieListSerializer(movie, many=True)
 
@@ -119,7 +119,7 @@ def recent_movie_list(request):
     if request.method == "GET":
         movie = Movie.objects.filter(release_date__lte=datetime.date.today()).order_by(
             "-release_date"
-        )[:20]
+        )[:15]
 
         serializer = MovieListSerializer(movie, many=True)
 
@@ -157,7 +157,7 @@ def recommend_movie_list(request):
             newmovie = movie
 
             serializers = MovieListSerializer(
-                newmovie.order_by("-score")[:20], many=True
+                newmovie.order_by("-score")[1:16], many=True
             )
             return Response(serializers.data, status=status.HTTP_200_OK)
 
