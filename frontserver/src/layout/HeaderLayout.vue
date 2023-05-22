@@ -1,6 +1,10 @@
 <template>
   <header class="header bg-dark fixed-top">
     <nav>
+      <router-link :to="{ name: 'movies' }">
+        <img class="icon" src="@/assets/popcorn/logo.png" alt="">
+      </router-link>
+
       <router-link :to="{ name: 'main' }">index</router-link>
       <router-link :to="{ name: 'movies' }">Home</router-link>
       <router-link :to="{ name: 'commu' }">Community</router-link>
@@ -11,6 +15,8 @@
       <a href="">
         <button v-if="isLogin" type="submit" @click="logOut">로그아웃</button>
       </a>
+
+      <!-- <a href="https://www.flaticon.com/kr/free-icons/" title="팝콘 아이콘">팝콘 아이콘  제작자: Freepik - Flaticon</a> -->
     </nav>
   </header>
 </template>
@@ -36,7 +42,7 @@ export default {
 
 <style scoped>
 .header {
-  height: 50px;
+  height: 60px;
 }
 
 nav {
@@ -52,5 +58,9 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #ffc107;
+}
+
+.icon{
+  height: 40px;
 }
 </style>
