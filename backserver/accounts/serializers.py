@@ -1,12 +1,10 @@
 from rest_framework import serializers
-from .models import User, UserProfile
+from .models import User
 from movies.models import Movie, Review
 from communitys.models import Post, Comment
 
 
 class MovieSerializer(serializers.ModelSerializer):
-    # user 가 좋아하는 영화 목록에 들어갈 정보
-    # 제목, 링크용 id?, 포스터
     class Meta:
         model = Movie
         fields = "__all__"
@@ -25,25 +23,16 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
+    movie_title = serializers.CharField(source="movie.title")
+    movie_poster_path = serializers.CharField(source="movie.poster_path")
     class Meta:
         model = Review
         exclude = ("updated_at", "user")
 
 
-class UserProfileSerializer(serializers.ModelSerializer):
-    profile_image = serializers.ImageField(
-        max_length=None, allow_empty_file=False, use_url=True
-    )
-
-    class Meta:
-        model = UserProfile
-        fields = "__all__"
-        read_only_fields = ("user",)
-
-
 class UserSerializer(serializers.ModelSerializer):
-    followings_count = serializers.IntegerField(source="followings.count")
-    user_followers_count = serializers.IntegerField(source="user_followers.count")
+    followings_count = serializers.IntegerField(source="followings.count") # 내가 팔로잉
+    user_followers_count = serializers.IntegerField(source="user_followers.count") # 나를 팔로워
     like_movies = MovieSerializer(many=True)
     review_set = ReviewSerializer(many=True)
     post_set = PostSerializer(many=True)
@@ -61,12 +50,26 @@ class UserSerializer(serializers.ModelSerializer):
             "groups",
             "user_permissions",
         ]
+        read_only_fields = (
+            "followings_count",
+            "user_followers_count",
+            "like_movies",
+            "review_set",
+            "post_set",
+            "comment_set",
+        )
 
-
-class UserReviewSerializer(serializers.ModelSerializer):
-    movie_title = serializers.CharField(source="movie.title")
-    movie_poster_path = serializers.CharField(source="movie.poster_path")
-
+class UserListSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Review
-        fields = "__all__"
+        model = User
+        exclude = [
+            "username",
+            "last_login",
+            "is_superuser",
+            "is_staff",
+            "password",
+            "is_active",
+            "date_joined",
+            "groups",
+            "user_permissions",
+        ]
