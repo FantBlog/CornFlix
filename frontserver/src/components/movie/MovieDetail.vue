@@ -54,9 +54,19 @@ export default {
   name: 'MovieDetail',
   computed: {
     movie() {
-      const movieId = this.$route.params.movieId;
-      return this.$store.state.movie.recentmovies.find(movie => movie.id === movieId)
+      return this.$store.state.movie.movie
     },
+  },
+  created() {
+    this.getDetailMovie()
+  },
+  methods: {
+    getDetailMovie() {
+      const payload = {
+        movie_id : this.$route.params.movieId
+      }
+      this.$store.dispatch('getMovies', payload)
+    }
   },
 }
 </script>
