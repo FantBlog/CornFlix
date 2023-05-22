@@ -5,6 +5,10 @@ import createPersistedState from 'vuex-persistedstate';
 
 import userModule from '@/store/modules/user.js';
 import movieModule from '@/store/modules/movie.js';
+import reviewModule from '@/store/modules/review.js';
+import postModule from '@/store/modules/post.js';
+import commentModule from '@/store/modules/comment.js';
+import profileModule from '@/store/modules/profile.js';
 
 Vue.use(Vuex);
 
@@ -17,5 +21,9 @@ export default new Vuex.Store({
   modules: {
     user: userModule,
     movie: movieModule,
+    review: reviewModule,
+    post: postModule,
+    comment: commentModule,
+    profile: profileModule,
   },
 });

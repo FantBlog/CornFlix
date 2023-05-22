@@ -1,25 +1,21 @@
 <template>
-  <div id="app">
+  <div id="app" class="d-flex flex-column min-vh-100">
     <HeaderLayout />
-    <router-view/>
+    <router-view class="flex-fill" />
     <FooterLayout />
   </div>
 </template>
 
 <script>
-import HeaderLayout from '@/layout/HeaderLayout.vue';
-import FooterLayout from '@/layout/FooterLayout.vue';
+import HeaderLayout from '@/layout/HeaderLayout.vue'
+import FooterLayout from '@/layout/FooterLayout.vue'
 
 export default {
   components: {
     HeaderLayout,
     FooterLayout,
   },
-  data() {
-    return{
-    }
-  },
-};
+}
 </script>
 
 <style>
@@ -28,21 +24,29 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: rgb(255, 255, 255);
+  /* color: rgb(230, 230, 230); */
+  background-color: rgb(15, 15, 15);
+  /* font-family: 'Noto Sans KR', sans-serif; */
+  font-family: 'Gowun Batang', serif;
 }
+/* @font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+} */
+/* @font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+} */
+/* @import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+.nanummyeongjo * {
+ font-family: 'Nanum Myeongjo', serif;
+} */
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-
-
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
 </style>

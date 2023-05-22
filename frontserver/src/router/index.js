@@ -4,9 +4,14 @@ import VueRouter from 'vue-router'
 import store from '@/store/index';
 import MainView from '@/views/MainView.vue'
 import MoviesView from '@/views/MoviesView.vue'
-import CommunityView from '@/views/CommunityView.vue'
+import MovieDetail from '@/components/movie/MovieDetail.vue'
+import CommunityView from '@/views/community/CommunityView.vue'
+import CreatePostView from '@/views/community/CreatePostView.vue'
+import DetailPostView from '@/views/community/DetailPostView'
+import PutPostView from '@/views/community/PutPostView'
 import SignUpView from '@/views/SignUpView.vue'
 import LogInView from '@/views/LogInView.vue'
+import ProfileView from '@/views/ProfileView.vue'
 
 import NotFoundErr from '@/views/NotFoundErr'
 
@@ -18,24 +23,29 @@ const routes = [
     redirect: '/main'
   },
   {
-    path: '/notfound',
-    name: 'notfound',
-    component: NotFoundErr
-  },
-  {
     path: '/main',
     name: 'main',
     component: MainView
   },
   {
+    path: '/movies/:movieId',
+    name: 'MovieDetail',
+    component: MovieDetail,
+  },
+  {
     path: '/movies',
     name: 'movies',
-    component: MoviesView
+    component: MoviesView,
   },
   {
     path: '/commu',
     name: 'commu',
     component: CommunityView
+  },
+  {
+    path: '/create',
+    name: 'createPost',
+    component: CreatePostView
   },
   {
     path: '/signup',
@@ -48,8 +58,24 @@ const routes = [
     component: LogInView,
   },
   {
+    path: '/profile/:username',
+    name: 'profile',
+    component: ProfileView,
+  },
+  {
+    path: '/post/:id',
+    name: 'DetailPostView',
+    component: DetailPostView,
+  },
+  {
+    path: '/post/put/:id',
+    name: 'PutPostView',
+    component: PutPostView,
+  },
+  {
     path: '*',
-    redirect: '/notfound',
+    name: 'notfound',
+    component: NotFoundErr
   },
 
 ]

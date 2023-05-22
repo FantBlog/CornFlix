@@ -11,13 +11,13 @@ from .serializers import *
 def post_list(request):
     if request.method == "GET":
         posts = Post.objects.all()
-        serializer = PostSerializer(posts, many=True)
+        serializer = PostListSerializer(posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     elif request.method == "POST":
-        serializer = PostSerializer(data=request.data)
+        serializer = PostListSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save()
+            serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
@@ -25,12 +25,12 @@ def post_list(request):
 def post_detail(request, post_pk):
     if request.method == "GET":
         post = Post.objects.get(pk=post_pk)
-        serializer = PostSerializer(post)
+        serializer = PostDetailSerializer(post)
         return Response(serializer.data)
 
     elif request.method == "PUT":
         post = Post.objects.get(pk=post_pk)
-        serializer = PostSerializer(instance=Post, data=request.data)
+        serializer = PostListSerializer(instance=post, data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -51,9 +51,9 @@ def comment_list(request, post_pk):
 
     elif request.method == "POST":
         post = Post.objects.get(pk=post_pk)
-        serializer = CommentSerializer(data=request.data)
+        serializer = CommentListSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save(post=post)
+            serializer.save(post=post, user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
@@ -66,7 +66,7 @@ def comment_detail(request, comment_pk):
 
     elif request.method == "PUT":
         comment = Comment.objects.get(pk=comment_pk)
-        serializer = CommentSerializer(instance=comment, data=request.POST)
+        serializer = CommentListSerializer(instance=comment, data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -75,3 +75,18 @@ def comment_detail(request, comment_pk):
         comment = Comment.objects.get(pk=comment_pk)
         comment.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(["POST"])
+def like(request, post_pk):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            post = Post.objects.get(pk=post_pk)
+            if post != request.user:
+                if post.like_users.filter(pk=request.user.pk).exists():
+                    post.like_users.remove(request.user)
+                else:
+                    post.like_users.add(request.user)
+            serializer = PostDetailSerializer(post)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)

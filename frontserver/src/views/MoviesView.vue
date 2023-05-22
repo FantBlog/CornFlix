@@ -1,23 +1,23 @@
 <template>
   <div class="about">
     <h1>Home page</h1>
-    <RecentMovieList/>
+    <RecentMovieList />
+    <RecommendMovieList />
   </div>
 </template>
 
 
 <script>
-import RecentMovieList from '@/components/movie/RecentMovieList.vue'
+import RecentMovieList from '@/components/movie/RecentMovieList'
+import RecommendMovieList from '@/components/movie/RecommendMovieList'
 
 export default {
   name: 'MoviesView',
   components: {
     RecentMovieList,
+    RecommendMovieList,
   },
-  computed:{
-    isLogin() {
-      return this.$store.getters.isLogin // 로그인 여부
-    }
+  computed: {
   },
   created() {
     this.getRecentMovies()
@@ -25,6 +25,7 @@ export default {
   methods: {
     getRecentMovies() {
       this.$store.dispatch('getMovies')
+      this.$store.dispatch('getRecommendMovies')
     }
   },
 }
