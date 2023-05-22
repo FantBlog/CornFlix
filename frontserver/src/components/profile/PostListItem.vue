@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row" @click="goToDetailPage">
     <div class="col">
       <p>{{ post.id }}</p>
     </div>
@@ -17,7 +17,12 @@
 export default {
   props: {
     post: Object
-  }
+  },
+  methods: {
+    goToDetailPage() {
+      this.$router.push({ name: 'DetailPostView', params: { id: this.post.id } })
+    },
+  },
 }
 </script>
   
