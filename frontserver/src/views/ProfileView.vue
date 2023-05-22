@@ -35,6 +35,11 @@ export default {
   created() {
     this.getProfile()
   },
+  watch: {
+    $route(to, from) {
+      if (to.path !== from.path) this.getProfile()
+    }
+  },
   methods: {
     getProfile() {
       const user_name = this.$route.params.username
