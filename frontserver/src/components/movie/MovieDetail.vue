@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-    <iframe 
+    <iframe v-if="movie.youtube !== `null`"
       :width="1024"
       :height="600"
       :src="`https://www.youtube.com/embed/${movie.youtube}?autoplay=1`"
@@ -62,10 +62,11 @@ export default {
   },
   methods: {
     getDetailMovie() {
+      console.log(this.$route.params.movieId)
       const payload = {
         movie_id : this.$route.params.movieId
       }
-      this.$store.dispatch('getMovies', payload)
+      this.$store.dispatch('getDetailMovie', payload)
     }
   },
 }

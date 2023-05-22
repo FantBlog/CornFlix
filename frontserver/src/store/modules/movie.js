@@ -24,7 +24,7 @@ export default {
           console.log(err);
         });
     },
-    getMovies(context, payload) {
+    getDetailMovie(context, payload) {
       const movie_id = payload.movie_id
       fetchDetailMovie({ movie_id })
         .then((res) => {
