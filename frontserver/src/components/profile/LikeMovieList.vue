@@ -59,7 +59,7 @@ export default {
       const chunks = []
       let j = like_movies.length
 
-      const cardCount = this.LargeScreen ? 10 : 6;
+      const cardCount = this.LargeScreen ? 5 : 3;
 
       for (let i = 0; i < j; i += cardCount) {
         chunks.push(like_movies.slice(i, i + cardCount))
