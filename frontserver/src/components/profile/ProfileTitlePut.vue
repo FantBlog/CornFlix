@@ -7,7 +7,17 @@
       <div class="content">
         <div class="img-container">
           <img :src="profileImage" alt="" class="img-thumbnail rounded-circle float-start"
-            style="width: 120px; height: 120px;">
+            style="width: 120px;height: 120px;">
+          <div class="image-upload">
+            <label for="file-input">
+              <img src="@/assets/changeimage.png" class="img-thumbnail rounded-circle float-start"
+                style="width: 120px;height: 120px;" />
+            </label>
+
+            <input id="file-input" type="file" style="visibility: hidden;" @change="handleFileUpload" />
+          </div>
+        </div>
+        <div class="img-container">
           <div id="follow" class="d-flex align-items-center justify-content-between">
             <p class="me-2 mb-0">팔로워: {{ profile.user_followers_count }} 팔로잉: {{ profile.followings_count }}</p>
             <button v-if="!isCurrentUser" @click="toggleFollow" class="ms-auto btn btn-primary">
@@ -23,14 +33,21 @@
           </div>
         </div>
         <h3 style="text-align: center;">{{ profile.username }}</h3>
-        <p style="text-align: center;">{{ profile.content }}</p>
+        <input type="text" v-model="content">
+        <button @click="uploadImage">[수정하기]</button>
       </div>
     </div>
   </div>
 </template>
-  
+
 <script>
 export default {
+  data() {
+    return {
+      selectedFile: null,
+      content: "",
+    }
+  },
   computed: {
     isCurrentUser() {
       return this.$route.params.username === this.$store.state.user.username
@@ -47,6 +64,24 @@ export default {
     },
   },
   methods: {
+    handleFileUpload(event) {
+      this.selectedFile = event.target.files[0]
+    },
+    uploadImage() {
+      const user_name = this.$route.params.username
+      const image = this.selectedFile
+      const content = this.content
+      const payload = {
+        user_name, content, image
+      }
+
+      if (!content) {
+        alert('내용 입력해주세요')
+        return
+      }
+
+      this.$store.dispatch('putProfile', payload)
+    },
     toggleFollow() {
       const user_name = this.$route.params.username
       const payload = { user_name }
@@ -58,7 +93,7 @@ export default {
   }
 }
 </script>
-  
+
 <style scoped>
 .profile {
   width: 100%;
@@ -81,5 +116,14 @@ export default {
   border-color: transparent;
   position: relative;
   top: -75px;
+}
+
+.image-upload {
+  position: absolute;
+  border-color: transparent;
+  top: -75px;
+  opacity: 0.5;
+  /* 반투명한 배경색 */
+  z-index: 1;
 }
 </style>
