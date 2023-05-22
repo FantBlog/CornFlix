@@ -14,5 +14,11 @@ const fetchReview = function ({ user_name }) {
   });
 };
 
+const fetchFollow = function ({ user_name }) {
+  return api({
+    method: 'post',
+    url: `/user/${user_name}/follow/`
+  });
+};
 
-export { fetchProfile, fetchReview };
+export { fetchProfile, fetchReview, fetchFollow };

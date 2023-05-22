@@ -16,11 +16,12 @@
               {{ isFollowing ? '언팔로우' : '팔로우' }}
             </button>
             <button v-else>
-              프로필 수정
-              드롭박스 <a
-                href="https://getbootstrap.kr/docs/5.2/components/dropdowns/">https://getbootstrap.kr/docs/5.2/components/dropdowns/</a>
-              리뷰 토글? <a
-                href="https://getbootstrap.kr/docs/5.2/components/collapse/">https://getbootstrap.kr/docs/5.2/components/collapse/</a>
+               <a
+                href="https://getbootstrap.kr/docs/5.2/components/dropdowns/">프로필 수정
+              드롭박스</a>
+              <br>
+               <a
+                href="https://getbootstrap.kr/docs/5.2/components/collapse/">리뷰 토글?</a>
             </button>
           </div>
         </div>
@@ -35,19 +36,26 @@
 export default {
   data() {
     return {
-      isCurrentUser: false,
-      isFollowing: false,
+      // isCurrentUser: false,
     }
   },
   computed: {
+    isCurrentUser() {
+      return this.$route.params.username === this.$store.state.user.username
+    },
     profile() {
       return this.$store.state.profile.profile
+    },
+    isFollowing() {
+      return this.$store.state.profile.isFollowing
     },
   },
   methods: {
     toggleFollow() {
-
-    }
+      const user_name = this.$route.params.username
+      const payload = { user_name }
+      this.$store.dispatch('postFollow', payload)
+    },
   }
 }
 </script>
