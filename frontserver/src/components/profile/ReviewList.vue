@@ -4,25 +4,9 @@
     <h3 class="text-start">리뷰들</h3>
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
-        <div class="carousel-item active">
+        <div class="carousel-item"  v-for="( review, idx ) in dividedReviews" :key="idx" :class="{ 'active': idx === 0 }">
           <div class="row row-cols-3 row-cols-md-5 g-3">
-            <ReviewListItem v-for="review in reviews" :key="review.id" :review="review" />
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="row row-cols-3 row-cols-md-5 g-3">
-            <div class="col">
-              <div class="card">
-                <img src="@/assets/poster/poster1.jpg" class="card-img-top" alt="...">
-                <div class="card-body">영화제목</div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card">
-                <img src="@/assets/poster/poster2.jpg" class="card-img-top" alt="...">
-                <div class="card-body">영화제목</div>
-              </div>
-            </div>
+            <ReviewListItem v-for="rvw in review" :key="rvw.id" :review="rvw" />
           </div>
         </div>
       </div>
@@ -44,8 +28,25 @@ import ReviewListItem from '@/components/profile/ReviewListItem';
 export default {
   components: { ReviewListItem },
   props: {
-    reviews: Array,
+    reviews: Array
   },
+  computed: {
+    dividedReviews() {
+      const reviews = this.reviews
+
+      if (reviews === undefined) {
+        return[]
+      }
+
+      const chunks = []
+      let j = reviews.length
+
+      for (let i = 0; i < j; i += 6) {
+        chunks.push(reviews.slice(i, i + 6))
+      }
+      return chunks
+    },
+  }
 }
 </script>
   
