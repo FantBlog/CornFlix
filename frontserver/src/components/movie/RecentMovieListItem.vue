@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-list-item card p-0" @click="goToDetailPage">
+  <div class="movie-list-item card" @click="goToDetailPage">
     <img :src="movie.poster_path" alt="영화 포스터" class="card-img-top">
     <div class="card-body">
       <h5 class="card-title">{{ movie.title }}</h5>
@@ -25,7 +25,6 @@ export default {
 .movie-list-item {
   width: 200px;
   margin: 10px;
-  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   text-align: center;
