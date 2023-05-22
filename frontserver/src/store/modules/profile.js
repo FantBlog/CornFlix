@@ -3,6 +3,7 @@ import { fetchProfile, fetchReview, fetchFollow } from '@/api/user/profile';
 export default {
   state: {
     profile: {},
+    reviews: [],
     isFollowing: false,
   },
   mutations: {
@@ -19,8 +20,8 @@ export default {
       else state.isFollowing = false
       state.profile = profile
     },
-    GET_REVIEW(state, review) {
-      state.review = review
+    GET_REVIEW(state, reviews) {
+      state.reviews = reviews
     }
   },
   actions: {
@@ -28,7 +29,7 @@ export default {
       const user_name = payload.user_name
       fetchProfile({ user_name })
         .then((res) => {
-          console.log(res.data)
+          // console.log(res.data)
           context.commit('GET_PROFILE', res.data)
         })
         .catch((err) => {

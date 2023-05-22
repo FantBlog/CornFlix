@@ -4,7 +4,7 @@
     <div class="container-lg p-0">
       <div class="wrap">
         <LikeMovieList :like_movies="profile.like_movies" />
-        <ReviewList :reviews="reviews" />
+        <ReviewList :reviews="reviews"/>
         <PostList :posts="profile.post_set" />
       </div>
     </div>
@@ -29,8 +29,8 @@ export default {
       return this.$store.state.profile.profile
     },
     reviews() {
-      return this.$store.state.profile.review
-    }
+      return this.$store.state.profile.reviews
+    },
   },
   created() {
     this.getProfile()
@@ -42,7 +42,6 @@ export default {
       this.$store.dispatch('getProfile', payload)
       this.$store.dispatch('getReview', payload)
     },
-
   },
 }
 </script>
