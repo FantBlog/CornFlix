@@ -1,17 +1,20 @@
 <template>
-    <div @click="toggleOn" class="background-container d-flex align-items-center justify-content-center mx-0">
-        <div v-if="isStateOn">
-            <h1 class="tracking-in-expand cornflix">CORNFLIX</h1>
-        </div>
-        <div class="scale-up-center" v-else>
-            <div class="text-container align-items-end">
-                <router-link :to="{ name: 'movies' }">Home</router-link><br>
-            </div>
-            <div class="text-container">
-                <router-link :to="{ name: 'commu' }">Community</router-link>
-            </div>
-        </div>
+  <div @click="toggleOn" class="background-container d-flex align-items-center justify-content-center mx-0">
+    <div v-if="isStateOn">
+      <h1 v-if="stateOn" class="tracking-in-expand cornflix">CORNFLIX</h1>
+      <h1 v-else class="tracking-out-contract cornflix">CORNFLIX</h1>
     </div>
+    <div v-else>
+      <div class="scale-up-center">
+        <div class="text-container align-items-end">
+          <router-link :to="{ name: 'movies' }">Home</router-link><br>
+        </div>
+        <div class="text-container">
+          <router-link :to="{ name: 'commu' }">Community</router-link>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -23,12 +26,16 @@ components: {
 },
 data() {
     return{
-    isStateOn:true
+    isStateOn:true,
+    stateOn:true
     }
 },
-methods:{
-    toggleOn(){
-    this.isStateOn = false
+methods: {
+    toggleOn() {
+        this.stateOn = false;
+        setTimeout(() => {
+            this.isStateOn = false;
+        }, 1000);
     }
 }
 }
@@ -59,12 +66,27 @@ methods:{
     opacity: 1;
   }
 }
+.tracking-out-contract {
+	animation: tracking-out-contract 0.7s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+}
+@keyframes tracking-out-contract {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+}
 
 .scale-up-center {
   height: 350px;
   width: 350px;
   background-color: rgba(0, 0, 0, 0.8);
-  animation: scale-up-center 0.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.1s both;
+  animation: scale-up-center 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
   display: flex;
   flex-direction: column; 
   /* align-items: center; */

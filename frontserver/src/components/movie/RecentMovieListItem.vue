@@ -1,9 +1,9 @@
 <template>
   <div class="movie-list-item card" @click="goToDetailPage">
     <img :src="movie.poster_path" alt="영화 포스터" class="card-img-top">
-    <div class="card-body">
+    <!-- <div class="card-body">
       <h5 class="card-title">{{ movie.title }}</h5>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -23,22 +23,20 @@ export default {
 
 <style scoped>
 .movie-list-item {
-  width: 200px;
+  min-width: 180px;
   margin: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  text-align: center;
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .movie-list-item:hover {
-  transform: scale(1.1);
+  transform: scale(1.2);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  z-index: 1;
 }
 
 .card-img-top {
-  height: 300px;
   object-fit: cover;
 }
 

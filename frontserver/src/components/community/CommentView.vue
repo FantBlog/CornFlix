@@ -1,8 +1,8 @@
 <template>
   <div>
-    <p>댓글 개수 : {{ post?.comment_count }}</p>
+    <p>댓글 개수 : {{ post.comment_count }}</p>
     <ul>
-      <li v-for="comment in post?.comment_set" :key="comment.id">
+      <li v-for="comment in post.comment_set" :key="comment.id">
         <CommentDetail :comment="comment"/>
       </li>
     </ul>

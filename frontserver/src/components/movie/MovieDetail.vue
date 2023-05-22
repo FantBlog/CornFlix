@@ -4,54 +4,56 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-          <img class="img-fluid" :src="movie?.poster_path" alt="영화 포스터">
+          <img class="img-fluid" :src="movie.poster_path" alt="영화 포스터">
         </div>
       </div>
     </div>
-    <div class="wrap">
-      <div id="likemovies" class="row">
-        <div class="col-6 col-lg-4">
-          <img class="movie-poster" :src="movie?.poster_path" alt="영화 포스터" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="wrap container text-center">
+      <div id="likemovies" class="row justify-content-md-center align-items-center">
+        <div class="col-md-4">
+          <img class="movie-poster" :src="movie.poster_path" alt="영화 포스터" data-bs-toggle="modal" data-bs-target="#exampleModal">
         </div>
-        <div class="col-6 col-lg-8">
-          <h1 class="text-center m-3"><b>{{ movie?.title }}</b></h1>
-          <p>{{ movie?.genre_id }}</p>
-          <p class="text-start mt-5">{{ movie?.overview }}</p>
-        </div>
-      </div>
-    </div>
-    <div class="accordion m-5" id="accordionExample">
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            리뷰
-          </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            리뷰
+        <div class="col-6 col-md-8">
+          <h1 class="text-center m-3"><b>{{ movie.title }}</b></h1>
+          <!-- <p>{{ movie.genres }}</p> -->
+          <p class="d-flex">개봉일 : {{ movie.release_date }}</p>
+          <div class="d-flex">
+            <p class="me-2">장르 :</p>
+            <div class="genre-list d-flex flex-wrap">
+              <p v-for="genre in movie.genres" :key="genre.id" class="me-2 mb-2">{{ genre.name }}</p>
+            </div>
           </div>
+          <p class="text-start mt-5">{{ movie.overview }}</p>
         </div>
       </div>
     </div>
-    <iframe v-if="movie?.youtube !== `null`"
+
+    <MovieReview v-bind:reviews="movie.review_set" :review_count="movie.review_count"/>
+
+    <iframe class="container" v-if="movie.youtube !== `null`"
       :width="1024"
       :height="600"
-      :src="`https://www.youtube.com/embed/${movie?.youtube}?autoplay=1`"
+      :src="`https://www.youtube.com/embed/${movie.youtube}?autoplay=1`"
       title="YouTube video player"
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen>
     </iframe>
-    <div>
+
+    <!-- <div>
       <h2>비슷한 영화 추천</h2>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
+import MovieReview from '@/components/movie/MovieReview.vue'
+
 export default {
   name: 'MovieDetail',
+  components: {
+      MovieReview,
+    },
   computed: {
     movie() {
       return this.$store.state.movie.movie
@@ -78,5 +80,14 @@ export default {
 }
 .movie-poster{
     height: 500px;
+}
+#likemovies .col {
+  flex: 0 0 50%;
+  max-width: 50%;
+  margin-bottom: 20px;
+}
+
+.collapse{
+  background-color: black;
 }
 </style>
