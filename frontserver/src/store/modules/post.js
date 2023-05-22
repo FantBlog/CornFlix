@@ -1,11 +1,12 @@
-import { fetchPosts, fetchCreatePosts, fetchDetailPost, fetchDeleteDetailPost, fetchPutDetailPost } from '@/api/community/post.js'
+import { fetchPosts, fetchCreatePosts, fetchDetailPost, fetchDeleteDetailPost, fetchPutDetailPost, fetchLikePosts } from '@/api/community/post.js'
 
 import router from '@/router'
 
 export default {
   state: {
     posts: [],
-    post: {}
+    post: {},
+    islike: false,
   },
   mutations: {
     GET_POSTS(state, posts) {
@@ -24,7 +25,19 @@ export default {
       } else {
         post.updated = ""
       }
-      state.post = post;
+      state.post = post
+
+      const like_users = post.like_users
+      if (like_users === undefined) state.islike = false
+
+      state.islike = false
+
+      like_users.forEach((user) => {
+        if (user.username == this.state.user.username) {
+          state.islike = true
+        }
+      })
+
     },
     DELETE_POST(state, post_id) {
       let posts = state.posts
@@ -81,13 +94,24 @@ export default {
       const title = payload.title
       const content = payload.content
       fetchPutDetailPost({ post_id, title, content })
-        .then((res) => {
-          console.log(res, context)
+        .then(() => {
+          // console.log(res, context)
           router.push({ name: 'DetailPostView', params: { id: post_id } })
         })
         .catch((err) => {
           console.log(err)
         })
     },
+    likePost(context, payload) {
+      const post_id = payload.post_id
+      fetchLikePosts({ post_id })
+        .then((res) => {
+          // console.log(res.data)
+          context.commit('GET_POST', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
   },
-};
+}
