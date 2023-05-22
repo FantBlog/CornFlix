@@ -12,6 +12,12 @@ const fetchCreatePosts = function ({ title, content }) {
     },
   })
 }
+const fetchLikePosts = function ({ post_id }) {
+  return api({
+    method: 'post',
+    url: `/community/posts/${post_id}/like/`,
+  })
+}
 
 const fetchDetailPost = (post_id) => api.get(`/community/posts/${post_id}/`)
 const fetchDeleteDetailPost = (post_id) => api.delete(`/community/posts/${post_id}/`)
@@ -26,4 +32,4 @@ const fetchPutDetailPost = function ({ post_id, title, content }) {
   })
 }
 
-export { fetchPosts, fetchCreatePosts, fetchDetailPost, fetchDeleteDetailPost, fetchPutDetailPost }
+export { fetchPosts, fetchCreatePosts, fetchDetailPost, fetchDeleteDetailPost, fetchPutDetailPost, fetchLikePosts }

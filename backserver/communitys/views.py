@@ -75,3 +75,18 @@ def comment_detail(request, comment_pk):
         comment = Comment.objects.get(pk=comment_pk)
         comment.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(["POST"])
+def like(request, post_pk):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            post = Post.objects.get(pk=post_pk)
+            if post != request.user:
+                if post.like_users.filter(pk=request.user.pk).exists():
+                    post.like_users.remove(request.user)
+                else:
+                    post.like_users.add(request.user)
+            serializer = PostDetailSerializer(post)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
