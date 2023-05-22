@@ -1,11 +1,11 @@
 <template>
   <div class="container-lg p-0">
-    <ProfileTitle v-if="changeprofile"/>
-    <ProfileTitlePut v-else/>
+    <ProfileTitle v-if="changeprofile" />
+    <ProfileTitlePut v-else />
     <div class="container-lg p-0">
       <div class="wrap">
         <LikeMovieList :like_movies="profile.like_movies" />
-        <ReviewList :reviews="reviews"/>
+        <ReviewList :reviews="profile.review_set" />
         <PostList :posts="profile.post_set" />
       </div>
     </div>
@@ -31,9 +31,6 @@ export default {
     profile() {
       return this.$store.state.profile.profile
     },
-    reviews() {
-      return this.$store.state.profile.reviews
-    },
     changeprofile() {
       return this.$store.state.profile.changeprofile
     },
@@ -51,7 +48,6 @@ export default {
       const user_name = this.$route.params.username
       const payload = { user_name }
       this.$store.dispatch('getProfile', payload)
-      this.$store.dispatch('getReview', payload)
     },
   },
 }

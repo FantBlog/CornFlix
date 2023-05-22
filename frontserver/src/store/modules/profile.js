@@ -1,9 +1,8 @@
-import { fetchProfile, fetchReview, fetchFollow, fetchPutProfile } from '@/api/user/profile';
+import { fetchProfile, fetchFollow, fetchPutProfile } from '@/api/user/profile';
 
 export default {
   state: {
     profile: {},
-    reviews: [],
     isFollowing: false,
     changeprofile: true,
   },
@@ -37,17 +36,6 @@ export default {
         .then((res) => {
           // console.log(res.data)
           context.commit('GET_PROFILE', res.data)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    },
-    getReview(context, payload) {
-      const user_name = payload.user_name
-      fetchReview({ user_name })
-        .then((res) => {
-          // console.log(res, context)
-          context.commit('GET_REVIEW', res.data)
         })
         .catch((err) => {
           console.log(err)

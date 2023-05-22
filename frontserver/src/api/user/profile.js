@@ -9,20 +9,13 @@ const fetchProfile = function ({ user_name }) {
 const fetchPutProfile = function ({ user_name, content, image }) {
   return api({
     method: 'put',
-    url: `/user/userprofile/${user_name}/`,
+    url: `/user/profile/${user_name}/`,
     data: {
       content,
     },
     image: {
       image
     }
-  })
-}
-
-const fetchReview = function ({ user_name }) {
-  return api({
-    method: 'get',
-    url: `/user/profile/${user_name}/review/`
   })
 }
 
@@ -33,4 +26,4 @@ const fetchFollow = function ({ user_name }) {
   })
 }
 
-export { fetchProfile, fetchReview, fetchFollow, fetchPutProfile };
+export { fetchProfile, fetchFollow, fetchPutProfile };
