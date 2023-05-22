@@ -36,6 +36,7 @@ class PostListSerializer(serializers.ModelSerializer):
 class PostDetailSerializer(serializers.ModelSerializer):
     comment_set = CommentSerializer(many=True)
     comment_count = serializers.IntegerField(source="comment_set.count")
+    like_users = UserSerializer(many=True)
     like_users_count = serializers.IntegerField(source="like_users.count")
     user = UserSerializer()
 
