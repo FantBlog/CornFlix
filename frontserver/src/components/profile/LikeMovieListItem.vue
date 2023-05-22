@@ -52,5 +52,6 @@ export default {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 0;
+  color: black;
 }
 </style>
