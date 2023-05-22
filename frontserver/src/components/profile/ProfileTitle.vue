@@ -6,28 +6,24 @@
       </div>
       <div class="content">
         <div class="img-container">
-          <img src="@/assets/poster/poster1.jpg" alt="" class="img-thumbnail rounded-circle float-start"
+          <img :src="profileImage" alt="" class="img-thumbnail rounded-circle float-start"
             style="width: 120px; height: 120px;">
-          <div id="follow" class="d-flex align-items-center">
-            <p class="me-2 mb-0">팔로워: {{ profile.user_followers_count }}</p>
-            <p class="me-2 mb-0">팔로잉: {{ profile.followings_count }}</p>
-            <p>팔로우 기능 만들기...</p>
+          <div id="follow" class="d-flex align-items-center justify-content-between">
+            <p class="me-2 mb-0">팔로워: {{ profile.user_followers_count }} 팔로잉: {{ profile.followings_count }}</p>
             <button v-if="!isCurrentUser" @click="toggleFollow" class="ms-auto btn btn-primary">
               {{ isFollowing ? '언팔로우' : '팔로우' }}
             </button>
             <button v-else>
-               <a
-                href="https://getbootstrap.kr/docs/5.2/components/dropdowns/">프로필 수정
-              드롭박스</a>
+              <a href="https://getbootstrap.kr/docs/5.2/components/dropdowns/">프로필 수정
+                드롭박스</a>
               <button @click="toggleProfile">[프로필 수정]</button>
               <br>
-               <a
-                href="https://getbootstrap.kr/docs/5.2/components/collapse/">리뷰 토글?</a>
+              <a href="https://getbootstrap.kr/docs/5.2/components/collapse/">리뷰 토글?</a>
             </button>
           </div>
         </div>
         <h3 style="text-align: center;">{{ profile.username }}</h3>
-        <p style="text-align: center;">프로필 소개 인가? </p>
+        <p style="text-align: center;">{{ profile.content }}</p>
       </div>
     </div>
   </div>
@@ -44,6 +40,10 @@ export default {
     },
     isFollowing() {
       return this.$store.state.profile.isFollowing
+    },
+    profileImage() {
+      const IMG_URL = process.env.VUE_APP_IMG_URL;
+      return IMG_URL + this.profile.profile_image
     },
   },
   methods: {
