@@ -1,5 +1,5 @@
 <template>
-  <div class="container-lg">
+  <div class="container-lg mt-5">
     <h1>최신 영화들</h1>
     <div class="movie-list">
       <RecentMovieListItem v-for="movie in recentmovies" :key="movie.id" :movie="movie" />

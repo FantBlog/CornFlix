@@ -28,21 +28,15 @@ const routes = [
     component: MainView
   },
   {
+    path: '/movies/:movieId',
+    name: 'MovieDetail',
+    component: MovieDetail,
+  },
+  {
     path: '/movies',
     name: 'movies',
     component: MoviesView,
-    children: [
-      {
-        path: ':movieId',
-        component: MovieDetail,
-      },
-    ],
   },
-{
-  path: '/movies/:movieId',
-  name: 'MovieDetail',
-  component: () => import('@/components/movie/MovieDetail.vue'),
-},
   {
     path: '/commu',
     name: 'commu',
