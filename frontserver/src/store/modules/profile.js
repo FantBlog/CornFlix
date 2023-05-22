@@ -11,11 +11,13 @@ export default {
       if (profile.username !== this.state.user.username) {
         const followers = profile.user_followers
         state.isFollowing = false
-        followers.forEach(user => {
-          if (user.username == this.state.user.username) {
-            state.isFollowing = true
-          }
-        })
+        if (followers !== undefined) {
+          followers.forEach(user => {
+            if (user.username == this.state.user.username) {
+              state.isFollowing = true
+            }
+          })
+        }
       }
       else state.isFollowing = false
       state.profile = profile
