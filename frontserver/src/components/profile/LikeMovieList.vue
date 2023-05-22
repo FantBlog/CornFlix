@@ -30,21 +30,51 @@ export default {
   props: {
     like_movies: Array,
   },
+  data() {
+    return {
+      isLargeScreen: false,
+    }
+  },
+  created() {
+    this.handleResize()
+  },
+  mounted() {
+    // console.log("ready...");
+    window.addEventListener('resize', this.handleResize)
+	},
+  beforeDestroy() {
+    // console.log("beforeDestroy...");
+    window.removeEventListener('resize', this.handleResize)
+  },
   computed: {
+    LargeScreen() {
+      return this.isLargeScreen
+    },
     dividedMovies() {
       if (this.like_movies === undefined) {
-        return null
+        return []
       }
 
       const like_movies = this.like_movies
       const chunks = []
       let j = like_movies.length
 
-      for (let i = 0; i < j; i += 6) {
-        chunks.push(like_movies.slice(i, i + 6))
+      const cardCount = this.LargeScreen ? 10 : 6;
+
+      for (let i = 0; i < j; i += cardCount) {
+        chunks.push(like_movies.slice(i, i + cardCount))
       }
       return chunks
     },
+  },
+  methods: {
+    handleResize() {
+      if (window.innerWidth >= 768) {
+        this.isLargeScreen = true
+        return
+      }
+      this.isLargeScreen = false
+    }
   }
 }
 </script>
