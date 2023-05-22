@@ -19,6 +19,7 @@
                <a
                 href="https://getbootstrap.kr/docs/5.2/components/dropdowns/">프로필 수정
               드롭박스</a>
+              <button @click="toggleProfile">[프로필 수정]</button>
               <br>
                <a
                 href="https://getbootstrap.kr/docs/5.2/components/collapse/">리뷰 토글?</a>
@@ -34,11 +35,6 @@
   
 <script>
 export default {
-  data() {
-    return {
-      // isCurrentUser: false,
-    }
-  },
   computed: {
     isCurrentUser() {
       return this.$route.params.username === this.$store.state.user.username
@@ -55,6 +51,9 @@ export default {
       const user_name = this.$route.params.username
       const payload = { user_name }
       this.$store.dispatch('postFollow', payload)
+    },
+    toggleProfile() {
+      this.$store.dispatch('toggleProfile')
     },
   }
 }

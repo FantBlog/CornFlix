@@ -1,10 +1,11 @@
-import { fetchProfile, fetchReview, fetchFollow } from '@/api/user/profile';
+import { fetchProfile, fetchReview, fetchFollow, fetchPutProfile } from '@/api/user/profile';
 
 export default {
   state: {
     profile: {},
     reviews: [],
     isFollowing: false,
+    changeprofile: true,
   },
   mutations: {
     GET_PROFILE(state, profile) {
@@ -24,7 +25,10 @@ export default {
     },
     GET_REVIEW(state, reviews) {
       state.reviews = reviews
-    }
+    },
+    TOGGLE_PROFILE(state) {
+      state.changeprofile = !state.changeprofile
+    },
   },
   actions: {
     getProfile(context, payload) {
@@ -59,6 +63,22 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    putProfile(context, payload) {
+      const user_name = payload.user_name
+      const image = payload.image
+      const content = payload.content
+      fetchPutProfile({ user_name, image, content })
+        .then((res) => {
+          console.log(res.data)
+          // context.commit('GET_PROFILE', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    toggleProfile(context) {
+      context.commit('TOGGLE_PROFILE')
     },
   },
 }
