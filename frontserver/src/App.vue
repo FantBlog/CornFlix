@@ -1,7 +1,7 @@
 <template>
-  <div id="app" class="d-flex flex-column min-vh-100">
+  <div id="app" class="d-flex flex-column min-vh-100 j">
     <HeaderLayout />
-    <router-view class="flex-fill" />
+    <router-view class="flex-fill main-wrap" />
     <FooterLayout />
   </div>
 </template>
@@ -30,6 +30,13 @@ export default {
   /* font-family: 'Noto Sans KR', sans-serif; */
   font-family: 'Gowun Batang', serif;
 }
+
+.main-wrap {
+  margin: 70px auto 20px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
 /* @font-face {
     font-family: 'SUITE-Regular';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
