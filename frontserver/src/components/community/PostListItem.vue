@@ -1,11 +1,12 @@
 <template>
   <div>
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.content }}</p>
     <router-link :to="{
       name: 'DetailPostView',
       params: {id: post.id }}">
-      [DETAIL]
+      <div class="post-list-item">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.content }}</p>
+      </div>
     </router-link>
   </div>
 </template>
@@ -20,6 +21,21 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+a{
+  text-decoration: none;
+  color: white;
+}
+
+.post-list-item { 
+  color:white; 
+  text-align:center; 
+}
+.post-list-item:hover { 
+  /* border:3px solid white;  */
+  background-color: rgb(43, 43, 43);
+  /* margin:-3px;  */
+  border-radius:5px; 
+}
 
 </style>

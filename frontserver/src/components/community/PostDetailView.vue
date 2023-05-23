@@ -1,8 +1,10 @@
 <template>
   <div>
     <h1>Detail</h1>
+    <router-link :to="{name: 'commu'}">뒤로가기</router-link>
+    <p>이전글/다음글/목록... </p>
+    <h1>{{ post?.title }}</h1>
     <p>글쓴이 : {{ post?.user?.username }}</p>
-    <p>제목 : {{ post?.title }}</p>
     <p>내용 : {{ post?.content }}</p>
     <p>작성시간 : {{ post?.created }}</p>
     <p>수정시간 : {{ post?.updated }}</p>
