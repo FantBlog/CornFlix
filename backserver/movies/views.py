@@ -102,7 +102,7 @@ def relate_movie_list(request, movie_pk):
 @api_view(["GET"])
 def genre_movie_list(request, genre_id, page):
     if request.method == "GET":
-        pagenum = page - 1
+        pagenum = (page - 1) * 15
         genres = [genre_id]
         movie = Movie.objects.filter(genres__in=genres).order_by("-score")[pagenum:pagenum+15]
 
@@ -114,7 +114,7 @@ def genre_movie_list(request, genre_id, page):
 @api_view(["GET"])
 def recent_movie_list(request, page):
     if request.method == "GET":
-        pagenum = page - 1
+        pagenum = (page - 1) * 15
         movie = Movie.objects.filter(release_date__lte=datetime.date.today()).order_by(
             "-release_date"
         )[pagenum:pagenum+15]
@@ -127,7 +127,7 @@ def recent_movie_list(request, page):
 @api_view(["GET"])
 def recommend_movie_list(request, page):
     if request.method == "GET":
-        pagenum = page - 1
+        pagenum = (page - 1) * 15
         defaultmovie = Movie.objects.order_by("-score")[pagenum:pagenum+15]
         defaultSerializer = MovieListSerializer(defaultmovie, many=True)
 
