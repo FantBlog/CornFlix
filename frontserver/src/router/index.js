@@ -5,6 +5,7 @@ import store from '@/store/index';
 import MainView from '@/views/MainView.vue'
 import MoviesView from '@/views/MoviesView.vue'
 import MovieDetail from '@/components/movie/MovieDetail.vue'
+import GenresView from '@/components/movie/GenreMovieList.vue'
 import CommunityView from '@/views/community/CommunityView.vue'
 import CreatePostView from '@/views/community/CreatePostView.vue'
 import DetailPostView from '@/views/community/DetailPostView'
@@ -26,6 +27,11 @@ const routes = [
     path: '/main',
     name: 'main',
     component: MainView
+  },
+  {
+    path: '/genres/:genreId/:genreName',
+    name: 'genres',
+    component: GenresView,
   },
   {
     path: '/movies/:movieId',

@@ -20,7 +20,13 @@
           <div class="d-flex">
             <p class="me-2">장르 :</p>
             <div class="genre-list d-flex flex-wrap">
-              <p v-for="genre in movie.genres" :key="genre.id" class="me-2 mb-2">{{ genre.name }}</p>
+              <p v-for="genre in movie.genres" :key="genre.id" class="me-2 mb-2">
+                <router-link :to="{
+                  name: 'genres',
+                  params: {genreId: genre.pk, genreName:genre.name }}">
+                  {{genre.name}}
+                </router-link>
+              </p>
             </div>
           </div>
           <p class="text-start mt-5">{{ movie.overview }}</p>
