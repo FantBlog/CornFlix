@@ -1,22 +1,32 @@
 <template>
   <div>
-    <div v-if="!modifyreview">
-      <p>
-        <input type="number" v-model="review_rank">
-        <input type="text" v-model="review_content">
-        <button @click="putReview">[완료]</button>
-        <button @click="setModify">[취소]</button>
-      </p>
+    <div v-if="modifyreview">
+      <img :src="profileImage" alt="" class="img-thumbnail rounded-circle float-start">
+      <div class="d-flex"><p class="star">{{ stars }}</p><p class="darkstar">{{ darkstar }}</p></div>
+      <div class="d-flex justify-content-between">
+        <p>{{ review.user.username }}</p>
+        <p>{{ review.content }}
+          <button class="btn btn-outline-secondary" @click="setmodify">[수정]</button>
+          <button class="btn btn-outline-secondary" @click="deleteReview">[삭제]</button>
+        </p>
+      </div>
     </div>
     <div v-else>
-      <p>{{ this.review.rank }} {{ this.review.content }}</p>
-      <button @click="setModify">[수정하기]</button>
-      <button @click="deleteReview">[리뷰 삭제]</button>
+      <img :src="profileImage" alt="" class="img-thumbnail rounded-circle float-start">
+      <div class="d-flex"><p class="star">{{ stars }}</p><p class="darkstar">{{ darkstar }}</p></div>
+      <div class="d-flex justify-content-between">
+        <p style="margin-right:20px;">{{ review.user.username }}</p>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" v-model="review_content" :placeholder="review.content" :aria-label="review.content" aria-describedby="button-addon2">
+          <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="setmodify">[취소]</button>
+          <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="putReview(review.id)">[완료]</button>
+        </div>
+      </div>
     </div>
   </div>
+
 </template>
-
-
+  
 <script>
 export default {
   name: 'MovieReviewDetail',
@@ -27,32 +37,81 @@ export default {
   data() {
     return {
       review_content: '',
-      review_rank: '',
       modifyreview: true,
+      stars: '',
+      darkstar: ''
     }
   },
-  methods: {
-    putReview() {
-      // const rank = this.review_rank !== '' ? this.review_rank : this.review.rank;
-      // const content = this.review_content !== '' ? this.review_content : this.review.content;
-      // const review_id = this.review_id;
-      // const payload = { rank, content, review_id };
-      // this.$store.dispatch('putReview', payload);
+  computed: {
+    profileImage() {
+      const IMG_URL = process.env.VUE_APP_IMG_URL
+      const image = this.review.user.profile_image
+      if (image === null || image === undefined) return IMG_URL + '/media/free-icon-popcorn-3418886.png'
+      return IMG_URL + image
     },
+  },
+  created(){
+    this.getStar()
+  },
+  methods: {
+    getStar() {
+      const rank = this.review.rank
+      for (let i = 0; i < 5; i++) {
+        console.log(rank)
+        if (i < rank) this.stars += '⭐'
+        else this.darkstar += '⭐'
+      }
+      console.log(this.stars)
+    },
+    putReview(review_id) {
+      const content = this.review_content
+      const payload = {review_id, content}
+      this.$store.dispatch('putReview', payload)
+    },
+    // putReview() {
+    //   const rank = this.review_rank !== '' ? this.review_rank : this.review.rank;
+    //   const content = this.review_content !== '' ? this.review_content : this.review.content;
+    //   const review_id = this.review_id;
+    //   const payload = { rank, content, review_id };
+    //   this.$store.dispatch('putReview', payload);
+    // },
     deleteReview() {
       const payload = { review_id: this.review_id }
       this.$store.dispatch('deleteReview', payload)
     },
-    setModify() {
+    setmodify() {
       this.modifyreview = !this.modifyreview
-      if (this.modifyreview) {
-        this.review_content = this.review.content
-        this.review_rank = this.review.rank
-      } else {
-        this.review_content = ''
-        this.review_rank = ''
-      }
     },
-  }
+    // setModify() {
+    //   this.modifyreview = !this.modifyreview
+    //   if (this.modifyreview) {
+    //     this.review_content = this.review.content
+    //     this.review_rank = this.review.rank
+    //   } else {
+    //     this.review_content = ''
+    //     this.review_rank = ''
+    //   }
+    // },
+  },
 }
 </script>
+  
+<style scoped>
+
+.img-thumbnail {
+  border-color: transparent;
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+.star{
+    font-size: 1em; /* 이모지 크기 */
+    color: transparent; /* 기존 이모지 컬러 제거 */
+    text-shadow: 0 0 0 rgb(255, 230, 0); /* 새 이모지 색상 부여 */
+}
+.darkstar{
+    font-size: 1em; /* 이모지 크기 */
+    color: transparent; /* 기존 이모지 컬러 제거 */
+    text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
+}
+</style>
