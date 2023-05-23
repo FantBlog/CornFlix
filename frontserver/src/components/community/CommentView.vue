@@ -1,13 +1,25 @@
 <template>
   <div>
-    <p>댓글 개수 : {{ post.comment_count }}</p>
-    <ul>
-      <li v-for="comment in post.comment_set" :key="comment.id">
-        <CommentDetail :comment="comment"/>
-      </li>
-    </ul>
+
     <input type="text" v-model="comment_content">
     <button @click="createComment">[댓글 작성]</button>
+
+    <div>
+      <p>댓글 개수 : {{ post.comment_count }}</p>
+      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        더보기
+      </button>
+    </div>
+    <div class="collapse " id="collapseExample">
+      <div class="card card-body bg-dark">
+        <ul>
+          <li v-for="comment in post.comment_set" :key="comment.id">
+            <CommentDetail :comment="comment"/>
+          </li>
+        </ul> 
+      </div>
+    </div>
+
   </div>
 </template>
 
