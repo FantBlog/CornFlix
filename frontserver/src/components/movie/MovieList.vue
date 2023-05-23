@@ -6,6 +6,31 @@
         <CardItem v-for="movie in typemovies" :key="movie.id" :movie="movie" />
       </div>
     </div>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" v-if="page > 1">
+          <a class="page-link" @click="goPage(page - 10)"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        <li class="page-item" v-if="!lentypemovies">
+          <p class="page-link" @click="goPage(page - 2)">{{ page - 2 }}</p>
+        </li>
+        <li class="page-item" v-if="page > 1">
+          <p class="page-link" @click="goPage(page - 1)">{{ page - 1 }}</p>
+        </li>
+        <li class="page-item active">
+          <p class="page-link" @click="goPage(page)">{{ page }}</p>
+        </li>
+        <li class="page-item" v-if="lentypemovies">
+          <p class="page-link" @click="goPage(page + 1)">{{ page + 1 }}</p>
+        </li>
+        <li class="page-item" v-if="page === 1">
+          <p class="page-link" @click="goPage(page + 2)">{{ page + 2 }}</p>
+        </li>
+        <li class="page-item" v-if="lentypemovies">
+          <p class="page-link" @click="goPage(page + 10)"><span aria-hidden="true">&raquo;</span></p>
+        </li>
+      </ul>
+    </nav>
   </div>
 </template>
 
@@ -23,6 +48,12 @@ export default {
   computed: {
     typemovies() {
       return this.$store.state.movie.typemovies
+    },
+    lentypemovies() {
+      return this.$store.state.movie.typemovies.length === 15
+    },
+    page() {
+      return Number(this.$route.params.page)
     },
   },
   methods: {
@@ -47,6 +78,29 @@ export default {
         this.$store.dispatch('getTypeMovies', payload)
       }
     },
+    goPage(nextpage) {
+      const type = this.$route.params.type
+
+      if (type === 'genre') {
+        const genreId = this.$route.query.genreId
+        const genreName = this.$route.query.genreName
+        const payload = {
+          name: 'typemovie',
+          params: { type, page: nextpage },
+          query: { genreId, genreName }
+        }
+        this.$router.push(payload)
+        this.$router.go()
+      }
+      else { // recent, recommend
+        const payload = {
+          name: 'typemovie',
+          params: { type, page: nextpage },
+        }
+        this.$router.push(payload)
+        this.$router.go()
+      }
+    }
   },
 }
 </script>
