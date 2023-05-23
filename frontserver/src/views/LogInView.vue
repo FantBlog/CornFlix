@@ -20,6 +20,9 @@
           </form>
         </div>
       </div>
+      <router-link :to="{ name: 'main' }" class="logo position-absolute">
+        <img src="@/assets/popcorn/logo.png" class="logoimage" alt="Logo" height="40">
+      </router-link>
     <!-- </div> -->
   </div>
 </template>
@@ -32,7 +35,16 @@ export default {
       password: ''
     }
   },
+  created() {
+    this.toogleHeader()
+  },
+  destroyed() {
+    this.toogleHeader()
+  },
   methods: {
+    toogleHeader() {
+      this.$store.dispatch('toggleHeader')
+    },
     logIn(event) {
       event.preventDefault();
       
@@ -75,5 +87,12 @@ export default {
   .card {
     width: 90%;
   }
+}
+.logo{
+  left: 10px;
+  top: 10px;
+}
+.logoimage{
+  filter: invert(49%) sepia(55%) saturate(7442%) hue-rotate(193deg) brightness(93%) contrast(86%);
 }
 </style>

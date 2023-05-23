@@ -1,6 +1,7 @@
 <template>
   <div class="background-container d-flex align-items-center justify-content-center mx-0">
     <!-- <div class="" style="height: 100%;"> -->
+      
       <div class="card">
         <div class="card-body">
           <h1 class="text-center">Sign Up Page</h1>
@@ -21,6 +22,9 @@
           </form>
         </div>
       </div>
+      <router-link :to="{ name: 'main' }" class="logo position-absolute">
+        <img src="@/assets/popcorn/logo.png" class="logoimage" alt="Logo" height="40">
+      </router-link>
     <!-- </div> -->
   </div>
 </template>
@@ -35,7 +39,16 @@ export default {
       password2: null,
     }
   },
+  created() {
+    this.toogleHeader()
+  },
+  destroyed() {
+    this.toogleHeader()
+  },
   methods: {
+    toogleHeader() {
+      this.$store.dispatch('toggleHeader')
+    },
     signUp() {
       const { username, password1, password2 } = this;
       const payload = { username, password1, password2 };
@@ -60,6 +73,7 @@ export default {
 .card {
   width: 500px;
   background-color: rgba(255, 255, 255, 0.7);
+  color: black;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -69,5 +83,12 @@ export default {
   .card {
     width: 90%;
   }
+}
+.logo{
+  left: 10px;
+  top: 10px;
+}
+.logoimage{
+  filter: invert(49%) sepia(55%) saturate(7442%) hue-rotate(193deg) brightness(93%) contrast(86%);
 }
 </style>
