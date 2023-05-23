@@ -1,7 +1,7 @@
 <template>
   
-  <div class="col">
-    <div class="movie-list-item card" @click="goToDetailPage">
+  <div class="col" >
+    <div class="movie-list-item  mx-auto card" @click="goToDetailPage">
       <img :src=movie.poster_path class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title">{{ movie.title }}</h5>
