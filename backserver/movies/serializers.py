@@ -9,6 +9,12 @@ class GenreSerializer(serializers.ModelSerializer):
         fields = ("name",)
 
 
+class UserDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("profile_image", "username")
+
+
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
@@ -17,7 +23,16 @@ class ReviewSerializer(serializers.ModelSerializer):
             "content",
             "rank",
         )
-        read_only_fields = ('user_id',)
+        read_only_fields = ("user_id",)
+
+
+class ReviewDetailSerializer(serializers.ModelSerializer):
+    user = UserDetailSerializer()
+
+    class Meta:
+        model = Review
+        fields = "__all__"
+        read_only_fields = ("user_id",)
 
 
 class MovieSerializer(serializers.ModelSerializer):
@@ -37,7 +52,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class MovieDetailSerializer(serializers.ModelSerializer):
     genres = GenreSerializer(many=True)
-    review_set = ReviewSerializer(many=True)
+    review_set = ReviewDetailSerializer(many=True)
     review_count = serializers.IntegerField(source="review_set.count")
     like_users_count = serializers.IntegerField(source="like_users.count")
 
