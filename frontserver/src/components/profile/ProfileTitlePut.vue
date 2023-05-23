@@ -9,7 +9,7 @@
           <img :src="profileImage" alt="" class="img-thumbnail rounded-circle float-start"
             style="width: 120px;height: 120px;">
           <div class="image-upload">
-            <label for="file-input">
+            <label for="file-input" @change="handleFileUpload">
               <img src="@/assets/changeimage.png" class="img-thumbnail rounded-circle float-start"
                 style="width: 120px;height: 120px;" />
             </label>
@@ -19,7 +19,10 @@
         </div>
         <div class="img-container">
           <div id="follow" class="d-flex align-items-center justify-content-between">
-            <p class="me-2 mb-0">팔로워: {{ profile.user_followers_count }} 팔로잉: {{ profile.followings_count }}</p>
+            <div class="ml-2">
+              <h3 style="text-align: left;">{{ profile.username }}</h3>
+              <p class="me-2 mb-0">팔로워: {{ profile.user_followers_count }} 팔로잉: {{ profile.followings_count }}</p>
+            </div>
             <button v-if="!isCurrentUser" @click="toggleFollow" class="ms-auto btn btn-primary">
               {{ isFollowing ? '언팔로우' : '팔로우' }}
             </button>
@@ -32,7 +35,6 @@
             </button>
           </div>
         </div>
-        <h3 style="text-align: center;">{{ profile.username }}</h3>
         <input type="text" v-model="content">
         <button @click="uploadImage">[수정하기]</button>
       </div>
@@ -59,7 +61,8 @@ export default {
       return this.$store.state.profile.isFollowing
     },
     profileImage() {
-      const IMG_URL = process.env.VUE_APP_IMG_URL;
+      const IMG_URL = process.env.VUE_APP_IMG_URL
+      if (this.profile.profile_image === null || this.profile.profile_image === undefined) return '@/assets/popcorn/err.png'
       return IMG_URL + this.profile.profile_image
     },
   },
