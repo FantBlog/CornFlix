@@ -6,17 +6,12 @@ const fetchProfile = function ({ user_name }) {
     url: `/user/profile/${user_name}/`
   })
 }
-const fetchPutProfile = function ({ user_name, content, image }) {
-  return api({
-    method: 'put',
-    url: `/user/profile/${user_name}/`,
-    data: {
-      content,
-    },
-    image: {
-      image
-    }
-  })
+const fetchPutProfile = function ({ user_name, content, profile_image }) {
+  const formData = new FormData()
+  formData.append('content', content)
+  formData.append('profile_image', profile_image)
+
+  return api.put(`/user/profile/${user_name}/`, formData)
 }
 
 const fetchFollow = function ({ user_name }) {

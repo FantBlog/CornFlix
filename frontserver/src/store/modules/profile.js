@@ -1,5 +1,7 @@
 import { fetchProfile, fetchFollow, fetchPutProfile } from '@/api/user/profile';
 
+import router from '@/router'
+
 export default {
   state: {
     profile: {},
@@ -54,11 +56,11 @@ export default {
     },
     putProfile(context, payload) {
       const user_name = payload.user_name
-      const image = payload.image
+      const profile_image = payload.image
       const content = payload.content
-      fetchPutProfile({ user_name, image, content })
-        .then((res) => {
-          console.log(res.data)
+      fetchPutProfile({ user_name, profile_image, content })
+        .then(() => {
+          router.go()
           // context.commit('GET_PROFILE', res.data)
         })
         .catch((err) => {
