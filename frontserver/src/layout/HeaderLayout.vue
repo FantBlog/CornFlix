@@ -33,7 +33,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <router-link :to="{ name: 'moives' }" class="nav-link active" aria-current="page">Home</router-link>
+              <router-link :to="{ name: 'movies' }" class="nav-link active" aria-current="page">Movies</router-link>
             </li>
             <li class="nav-item">
               <router-link :to="{ name: 'commu' }" class="nav-link">Community</router-link>
