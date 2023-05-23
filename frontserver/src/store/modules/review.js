@@ -31,7 +31,6 @@ export default {
       const review_id = payload.review_id
       const rank = payload.rank
       const content = payload.content
-      // console.log(review_id)
       fetchPutReview({ review_id, rank, content })
         .then(() => {
           router.go(0)

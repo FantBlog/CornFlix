@@ -35,7 +35,7 @@ def movie_detail(request, movie_pk):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     elif request.method == "PUT":
-        serializer = MovieSerializer(instance=movie, data=request.POST)
+        serializer = MovieSerializer(instance=movie, data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -76,7 +76,7 @@ def review_detail(request, review_pk):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     elif request.method == "PUT":
-        serializer = ReviewSerializer(instance=review, data=request.POST)
+        serializer = ReviewSerializer(instance=review, data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
