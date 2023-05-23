@@ -1,24 +1,52 @@
 <template>
-  <header class="header bg-dark fixed-top">
-    <nav>
-      <router-link :to="{ name: 'movies' }">
-        <img class="icon" src="@/assets/popcorn/logo.png" alt="">
-      </router-link>
-
-      <router-link :to="{ name: 'main' }">index</router-link>
-      <router-link :to="{ name: 'movies' }">Home</router-link>
-      <router-link :to="{ name: 'commu' }">Community</router-link>
-      <router-link :to="{ name: 'profile', params: { username: username } }">Profile</router-link>
-
-      <router-link v-if="!isLogin" :to="{ name: 'signup' }">SignUp</router-link>
-      <router-link v-if="!isLogin" :to="{ name: 'login' }">LogIn</router-link>
-      <a href="">
-        <button v-if="isLogin" type="submit" @click="logOut">로그아웃</button>
-      </a>
-
-      <!-- <a href="https://www.flaticon.com/kr/free-icons/" title="팝콘 아이콘">팝콘 아이콘  제작자: Freepik - Flaticon</a> -->
-    </nav>
-  </header>
+  <nav class="navbar navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+        <nav class="navbar navbar-dark bg-dark">
+          <div class="container-fluid">
+            <router-link :to="{ name: 'main' }" class="navbar-brand">
+              <img src="@/assets/popcorn/logo.png" alt="Logo" height="40" class="d-inline-block align-text-top">
+            </router-link>
+          </div>
+        </nav>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">CornFlix</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Profile
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><router-link :to="{ name: 'profile', params: { username: username } }" class="dropdown-item">내 프로필</router-link></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><router-link v-if="!isLogin" :to="{ name: 'signup' }" class="dropdown-item">Login</router-link></li>
+                <li><router-link v-if="!isLogin" :to="{ name: 'login' }" class="dropdown-item">Signup</router-link></li>
+                <li><router-link v-if="isLogin" :to="{ name: 'home' }" @click="logOut" class="dropdown-item">Logout</router-link></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <router-link :to="{ name: 'moives' }" class="nav-link active" aria-current="page">Home</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link :to="{ name: 'commu' }" class="nav-link">Community</router-link>
+            </li>
+          </ul>
+          <form class="d-flex mt-3" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script>
