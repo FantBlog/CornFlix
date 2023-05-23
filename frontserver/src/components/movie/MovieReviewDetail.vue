@@ -4,7 +4,11 @@
       <img :src="profileImage" alt="" class="img-thumbnail rounded-circle float-start">
       <div class="d-flex"><p class="star">{{ stars }}</p><p class="darkstar">{{ darkstar }}</p></div>
       <div class="d-flex justify-content-between">
-        <p>{{ review.user.username }}</p>
+        <router-link :to="{
+          name: 'profile',
+          params: {username: review.user.username }}">
+          {{review.user.username}}
+        </router-link>
         <p>{{ review.content }}
           <button class="btn btn-outline-secondary" @click="setmodify">[수정]</button>
           <button class="btn btn-outline-secondary" @click="deleteReview(review.id)">[삭제]</button>
@@ -54,13 +58,12 @@ export default {
   },
   methods: {
     getStar() {
+      this.review_content = this.review.content
       const rank = this.review.rank
       for (let i = 0; i < 5; i++) {
-        console.log(rank)
         if (i < rank) this.stars += '⭐'
         else this.darkstar += '⭐'
       }
-      console.log(this.stars)
     },
     putReview(review_id) {
       const content = this.review_content
