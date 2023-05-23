@@ -29,7 +29,7 @@
                 </li>
                 <li><router-link v-if="!isLogin" :to="{ name: 'login' }" class="dropdown-item">Login</router-link></li>
                 <li><router-link v-if="!isLogin" :to="{ name: 'signup' }" class="dropdown-item">Signup</router-link></li>
-                <li @click="logOut"><router-link v-if="isLogin" :to="{ name: 'home' }" class="dropdown-item">Logout</router-link></li>
+                <li @click="logOut"><router-link v-if="isLogin" :to="{ name: 'main' }" class="dropdown-item">Logout</router-link></li>
               </ul>
             </li>
             <li class="nav-item">
