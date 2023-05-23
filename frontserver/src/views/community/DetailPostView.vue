@@ -1,5 +1,5 @@
 <template>
-  <div class="post-detail">
+  <div class="post-detail-box">
     <DetailPost :post="post"/>
     <br>
     <Comment :post="post"/>
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style scoped>
-.post-detail {
+.post-detail-box {
   /* border: 1px solid white; */
   padding: 20px;
   width: 70vw;
