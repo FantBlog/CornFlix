@@ -14,6 +14,7 @@
                 v-for="review in reviews"
                 :key="review.id"
                 :review="review"
+                :review_id="review.id"
               />
             </ul>
 
@@ -56,7 +57,7 @@ export default {
   },
   data() {
     return {
-      review_rank: 0,
+      review_rank: 1,
       review_content:'',
     }
   },

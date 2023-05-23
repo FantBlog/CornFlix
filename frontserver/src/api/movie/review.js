@@ -13,14 +13,15 @@ const fetchCreateReview = function ({ movie_id, content,rank }) {
 const fetchDeleteReview = function ({ review_id }) {
   return api({
     method: 'delete',
-    url: `/reviews/${review_id}/`,
+    url: `/api/v1/reviews/${review_id}/`,
   })
 }
-const fetchPutReview = function ({ review_id, content }) {
+const fetchPutReview = function ({ review_id, rank, content }) {
   return api({
     method: 'put',
-    url: `/reviews/${review_id}/`,
+    url: `/api/v1/reviews/${review_id}/`,
     data: {
+      rank,
       content,
     },
   })
