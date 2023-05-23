@@ -36,20 +36,29 @@ computed: {
       return this.$store.state.user.username
     }
   },
-data() {
-    return{
-    isStateOn:true,
-    stateOn:true
-    }
-},
-methods: {
+  data() {
+      return{
+      isStateOn:true,
+      stateOn:true
+      }
+    },
+  created() {
+    this.toogleHeader()
+  },
+  destroyed() {
+    this.toogleHeader()
+  },
+  methods: {
+    toogleHeader() {
+      this.$store.dispatch('toggleHeader')
+    },
     toggleOn() {
-        this.stateOn = false;
-        setTimeout(() => {
-            this.isStateOn = false;
-        }, 1000);
+      this.stateOn = false
+      setTimeout(() => {
+          this.isStateOn = false
+      }, 1000);
     }
-}
+  }
 }
 </script>
 

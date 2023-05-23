@@ -26,4 +26,17 @@ export default new Vuex.Store({
     comment: commentModule,
     profile: profileModule,
   },
+  state: {
+    showHeader: true,
+  },
+  mutations: {
+    TOGGLE_HEADER(state) {
+      state.showHeader = !state.showHeader
+    },
+  },
+  actions: {
+    toggleHeader(context) {
+      context.commit('TOGGLE_HEADER')
+    }
+  }
 });

@@ -7,7 +7,18 @@
 
 <script>
 export default {
-
+name: 'NotFound',
+  created() {
+    this.toogleHeader()
+  },
+  destroyed() {
+    this.toogleHeader()
+  },
+  methods: {
+    toogleHeader() {
+      this.$store.dispatch('toggleHeader')
+    },
+  }
 }
 </script>
 

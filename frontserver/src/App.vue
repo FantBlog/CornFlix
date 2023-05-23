@@ -1,8 +1,10 @@
 <template>
   <div id="app" class="d-flex flex-column min-vh-100">
-    <HeaderLayout />
+    <div v-if="showHeader">
+      <HeaderLayout/><br><br>
+    </div>
     <router-view class="flex-fill" />
-    <FooterLayout />
+    <FooterLayout v-if="showHeader"/>
   </div>
 </template>
 
@@ -15,6 +17,12 @@ export default {
     HeaderLayout,
     FooterLayout,
   },
+  computed: {
+    showHeader() {
+      return this.$store.state.showHeader
+    }
+
+  }
 }
 </script>
 
