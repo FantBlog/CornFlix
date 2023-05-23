@@ -28,16 +28,20 @@
       </div>
     </div>
 
-    <MovieReview v-bind:reviews="movie.review_set" :review_count="movie.review_count"/>
+    <MovieReview 
+    v-bind:reviews="movie.review_set" 
+    :review_count="movie.review_count"
+    :movieId="movie_id"
+    />
 
     <iframe class="container" v-if="movie.youtube !== `null`"
-      :width="1024"
-      :height="600"
-      :src="`https://www.youtube.com/embed/${movie.youtube}?autoplay=1`"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen>
+    :width="1024"
+    :height="600"
+    :src="`https://www.youtube.com/embed/${movie.youtube}?autoplay=1`"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
     </iframe>
 
     <!-- <div>
@@ -55,7 +59,13 @@ export default {
       MovieReview,
     },
   computed: {
+    movie_id(){
+      return this.$route.params.movieId
+    },
     movie() {
+      if (this.$store.state.movie.movie === null) return {
+        poster_path:'',
+      }
       return this.$store.state.movie.movie
     },
   },

@@ -13,10 +13,11 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = (
-            "title",
+            # "title",
             "content",
             "rank",
         )
+        read_only_fields = ('user_id',)
 
 
 class MovieSerializer(serializers.ModelSerializer):

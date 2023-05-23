@@ -1,11 +1,12 @@
 import api from '@/api/base.js'
 
-const fetchCreateReview = function ({ movie_pk, content }) {
+const fetchCreateReview = function ({ movie_id, content,rank }) {
   return api({
     method: 'post',
-    url: `/movies/${movie_pk}/reviews/`,
+    url: `/api/v1/movies/${movie_id}/reviews/`,
     data: {
       content,
+      rank
     },
   })
 }

@@ -9,10 +9,10 @@ export default {
   },
   actions: {
     createReview(context, payload) {
-      const movie_pk = payload.movie_pk
+      const movie_id = payload.movie_id
+      const rank = payload.rank
       const content = payload.content
-
-      fetchCreateReview({ movie_pk, content })
+      fetchCreateReview({ movie_id, rank, content })
         .then(() => {
           router.go(0)
         })
