@@ -1,9 +1,10 @@
-import { fetchRecentMovies, fetchDetailMovie, fetchRecommendMovies } from '@/api/movie/index.js';
+import { fetchRecentMovies, fetchDetailMovie, fetchRecommendMovies, fetchRelateMovies } from '@/api/movie/index.js';
 
 export default {
   state: {
     recentmovies: [],
     recommendmovies: [],
+    relatemovies: [],
     movie: null,
   },
   mutations: {
@@ -12,6 +13,9 @@ export default {
     },
     GET_RECOMMEND_MOVIES(state, movies) {
       state.recommendmovies = movies;
+    },
+    GET_RELATE_MOVIE(state, movies) {
+      state.relatemovies = movies;
     },
     GET_DETAIL_MOVIE(state, movie) {
       state.movie = movie;
@@ -43,6 +47,16 @@ export default {
       fetchDetailMovie({ movie_id })
         .then((res) => {
           context.commit('GET_DETAIL_MOVIE', res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getRelateMovie(context, payload) {
+      const movie_id = payload.movie_id
+      fetchRelateMovies({ movie_id })
+        .then((res) => {
+          context.commit('GET_RELATE_MOVIE', res.data);
         })
         .catch((err) => {
           console.log(err);

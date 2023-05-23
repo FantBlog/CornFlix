@@ -43,7 +43,7 @@
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen>
     </iframe>
-
+    <RelateMovieList/>
     <!-- <div>
       <h2>비슷한 영화 추천</h2>
     </div> -->
@@ -52,11 +52,13 @@
 
 <script>
 import MovieReview from '@/components/movie/MovieReview.vue'
+import RelateMovieList from '@/components/movie/RelateList.vue'
 
 export default {
   name: 'MovieDetail',
   components: {
       MovieReview,
+      RelateMovieList,
     },
   computed: {
     movie_id(){
@@ -71,15 +73,21 @@ export default {
   },
   created() {
     this.getDetailMovie()
+    this.getRelateMovie()
   },
   methods: {
     getDetailMovie() {
-      // console.log(this.$route.params.movieId)
       const payload = {
         movie_id : this.$route.params.movieId
       }
       this.$store.dispatch('getDetailMovie', payload)
-    }
+    },
+    getRelateMovie() {
+      const payload = {
+        movie_id : this.$route.params.movieId
+      }
+      this.$store.dispatch('getRelateMovie', payload)
+    },
   },
 }
 </script>
