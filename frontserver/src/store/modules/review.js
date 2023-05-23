@@ -29,8 +29,9 @@ export default {
     },
     putReview(context, payload) {
       const review_id = payload.review_id
+      const rank = payload.rank
       const content = payload.content
-      fetchPutReview({ review_id, content })
+      fetchPutReview({ review_id, rank, content })
         .then(() => {
           router.go(0)
         })

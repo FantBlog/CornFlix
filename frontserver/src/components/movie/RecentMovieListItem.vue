@@ -34,8 +34,8 @@ export default {
 .movie-list-item {
   width: 200px;
   margin: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  /* border: 1px solid #ccc; */
+  border: none;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s;
@@ -43,6 +43,7 @@ export default {
 
 .movie-list-item:hover {
   transform: scale(1.1);
+  z-index: 1;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 

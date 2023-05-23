@@ -10,7 +10,12 @@
           <router-link :to="{ name: 'movies' }">Home</router-link><br>
         </div>
         <div class="text-container">
-          <router-link :to="{ name: 'commu' }">Community</router-link>
+          <div v-if="isLogin">
+            <router-link :to="{ name: 'commu' }">Community</router-link>
+          </div>
+          <div v-else>
+            <router-link :to="{ name: 'login' }">Login</router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -19,11 +24,18 @@
 
 <script>
 // @ is an alias to /src
+import { mapGetters } from 'vuex';
 
 export default {
 name: 'HomeView',
 components: {
 },
+computed: {
+    ...mapGetters(['isLogin']),
+    username() {
+      return this.$store.state.user.username
+    }
+  },
 data() {
     return{
     isStateOn:true,
@@ -107,7 +119,7 @@ methods: {
   /* align-items: center; */
   justify-content: center;
 }
-.text-container > a {
+a {
   font-size: 50px;
   color: white;
   text-decoration: none;

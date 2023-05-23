@@ -29,6 +29,7 @@ export default {
   background-color: rgb(15, 15, 15);
   /* font-family: 'Noto Sans KR', sans-serif; */
   font-family: 'Gowun Batang', serif;
+  font-size: 24px
 }
 /* @font-face {
     font-family: 'SUITE-Regular';

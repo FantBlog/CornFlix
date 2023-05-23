@@ -11,13 +11,21 @@
         </router-link>
         <p>{{ review.content }}
           <button class="btn btn-outline-secondary" @click="setmodify">[수정]</button>
-          <button class="btn btn-outline-secondary" @click="deleteReview(review.id)">[삭제]</button>
+          <button class="btn btn-outline-secondary" @click="deleteReview">[삭제]</button>
         </p>
       </div>
     </div>
     <div v-else>
       <img :src="profileImage" alt="" class="img-thumbnail rounded-circle float-start">
-      <div class="d-flex"><p class="star">{{ stars }}</p><p class="darkstar">{{ darkstar }}</p></div>
+      <form id="myform" @submit="ratestar">
+        <fieldset>
+          <input type="radio" v-model="selectedOption" name="rating" value="5" :id="'rate1'+review.id"><label :for="'rate1'+review.id">⭐</label>
+          <input type="radio" v-model="selectedOption" name="rating" value="4" :id="'rate2'+review.id"><label :for="'rate2'+review.id">⭐</label>
+          <input type="radio" v-model="selectedOption" name="rating" value="3" :id="'rate3'+review.id"><label :for="'rate3'+review.id">⭐</label>
+          <input type="radio" v-model="selectedOption" name="rating" value="2" :id="'rate4'+review.id"><label :for="'rate4'+review.id">⭐</label>
+          <input type="radio" v-model="selectedOption" name="rating" value="1" :id="'rate5'+review.id"><label :for="'rate5'+review.id">⭐</label>
+        </fieldset>
+      </form>
       <div class="d-flex justify-content-between">
         <p style="margin-right:20px;">{{ review.user.username }}</p>
         <div class="input-group mb-3">
@@ -33,12 +41,14 @@
   
 <script>
 export default {
-  name: 'DetailView',
+  name: 'MovieReviewDetail',
   props: {
-    review:Object,
+    review: Object,
+    review_id: Number,
   },
   data() {
     return {
+      selectedOption: '',
       review_content: '',
       modifyreview: true,
       stars: '',
@@ -67,17 +77,39 @@ export default {
     },
     putReview(review_id) {
       const content = this.review_content
-      const payload = {review_id, content}
+      const rank = this.selectedOption
+      console.log(rank)
+      const payload = {review_id,rank, content}
       this.$store.dispatch('putReview', payload)
     },
-    deleteReview(review_id) {
-      const payload = {review_id}
+    ratestar(event){
+      event.preventDefault()
+    },
+    // putReview() {
+    //   const rank = this.review_rank !== '' ? this.review_rank : this.review.rank;
+    //   const content = this.review_content !== '' ? this.review_content : this.review.content;
+    //   const review_id = this.review_id;
+    //   const payload = { rank, content, review_id };
+    //   this.$store.dispatch('putReview', payload);
+    // },
+    deleteReview() {
+      const payload = { review_id: this.review_id }
       this.$store.dispatch('deleteReview', payload)
     },
     setmodify() {
       this.modifyreview = !this.modifyreview
-    }
-  }
+    },
+    // setModify() {
+    //   this.modifyreview = !this.modifyreview
+    //   if (this.modifyreview) {
+    //     this.review_content = this.review.content
+    //     this.review_rank = this.review.rank
+    //   } else {
+    //     this.review_content = ''
+    //     this.review_rank = ''
+    //   }
+    // },
+  },
 }
 </script>
   
@@ -98,5 +130,33 @@ export default {
     font-size: 1em; /* 이모지 크기 */
     color: transparent; /* 기존 이모지 컬러 제거 */
     text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
+}
+#myform fieldset{
+    display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
+    border: 0; /* 필드셋 테두리 제거 */
+}
+#myform input[type=radio]{
+    display: none; /* 라디오박스 감춤 */
+}
+#myform label{
+    font-size: 1em; /* 이모지 크기 */
+    color: transparent; /* 기존 이모지 컬러 제거 */
+    text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
+}
+#myform label:hover{
+    text-shadow: 0 0 0 rgb(255, 230, 0); /* 마우스 호버 */
+}
+#myform label:hover ~ label{
+    text-shadow: 0 0 0 rgb(255, 230, 0); /* 마우스 호버 뒤에오는 이모지들 */
+}
+#myform fieldset legend{
+    text-align: left;
+}
+#myform fieldset{
+    display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
+    direction: rtl; /* 이모지 순서 반전 */
+    border: 0; /* 필드셋 테두리 제거 */
+}#myform input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 rgb(255, 230, 0); /* 마우스 클릭 체크 */
 }
 </style>

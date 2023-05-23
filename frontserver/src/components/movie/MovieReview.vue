@@ -14,6 +14,7 @@
                 v-for="review in reviews"
                 :key="review.id"
                 :review="review"
+                :review_id="review.id"
               />
             </div>
 
