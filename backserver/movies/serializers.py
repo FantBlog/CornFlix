@@ -6,7 +6,10 @@ from accounts.models import User
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
-        fields = ("name",)
+        fields = (
+            "name",
+            "pk",
+        )
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
