@@ -15,4 +15,10 @@ const fetchRelateMovies = function ({ movie_id }) {
     url: `/api/v1/movies/relate/${movie_id}/`
   })
 }
-export { fetchRecentMovies, fetchDetailMovie, fetchRecommendMovies, fetchRelateMovies };
+const fetchGenreMovies = function ({ genre_id }) {
+  return api({
+    method: 'get',
+    url: `/api/v1/movies/genre/${genre_id}/`
+  })
+}
+export { fetchRecentMovies, fetchDetailMovie, fetchRecommendMovies, fetchRelateMovies, fetchGenreMovies };
