@@ -11,7 +11,8 @@
     <div class="wrap container text-center">
       <div id="likemovies" class="row justify-content-md-center align-items-center">
         <div class="col-md-4">
-          <img class="movie-poster" :src="movie.poster_path" alt="영화 포스터" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <img class="movie-poster" :src="movie.poster_path" alt="영화 포스터" data-bs-toggle="modal"
+            data-bs-target="#exampleModal">
         </div>
         <div class="col-6 col-md-8">
           <h1 class="text-center m-3"><b>{{ movie.title }}</b></h1>
@@ -22,9 +23,11 @@
             <div class="genre-list d-flex flex-wrap">
               <p v-for="genre in movie.genres" :key="genre.id" class="me-2 mb-2">
                 <router-link :to="{
-                  name: 'genres',
-                  params: {genreId: genre.pk, genreName:genre.name }}">
-                  {{genre.name}}
+                  name: 'typemovie',
+                  params: { type: 'genre', page: 1 },
+                  query: { genreId: genre.pk, genreName: genre.name }
+                }">
+                  {{ genre.name }}
                 </router-link>
               </p>
             </div>
@@ -34,22 +37,19 @@
       </div>
     </div>
 
-    <MovieReview 
-    v-bind:reviews="movie.review_set" 
-    :review_count="movie.review_count"
-    :movieId="movie_id"
-    />
+    <MovieReview v-bind:reviews="movie.review_set" :review_count="movie.review_count" :movieId="movie_id" />
 
-    <iframe class="container" v-if="movie.youtube !== `null`"
-    :width="1024"
-    :height="600"
-    :src="`https://www.youtube.com/embed/${movie.youtube}?autoplay=1`"
-    title="YouTube video player"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen>
+    <!-- youtube부분 -->
+    <!-- <iframe class="container" v-if="movie.youtube !== `null`" :width="1024" :height="600"
+      :src="`https://www.youtube.com/embed/${movie.youtube}?autoplay=1`" title="YouTube video player" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+    </iframe> -->
+    <iframe class="container" v-if="movie.youtube !== `null`" :width="1024" :height="600"
+      :src="`https://www.youtube.com/embed/${movie.youtube}`" title="YouTube video player" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
     </iframe>
-    <RelateMovieList/>
+
+    <RelateMovieList />
     <!-- <div>
       <h2>비슷한 영화 추천</h2>
     </div> -->
@@ -63,16 +63,16 @@ import RelateMovieList from '@/components/movie/RelateList.vue'
 export default {
   name: 'MovieDetail',
   components: {
-      MovieReview,
-      RelateMovieList,
-    },
+    MovieReview,
+    RelateMovieList,
+  },
   computed: {
-    movie_id(){
+    movie_id() {
       return this.$route.params.movieId
     },
     movie() {
       if (this.$store.state.movie.movie === null) return {
-        poster_path:'',
+        poster_path: '',
       }
       return this.$store.state.movie.movie
     },
@@ -84,13 +84,13 @@ export default {
   methods: {
     getDetailMovie() {
       const payload = {
-        movie_id : this.$route.params.movieId
+        movie_id: this.$route.params.movieId
       }
       this.$store.dispatch('getDetailMovie', payload)
     },
     getRelateMovie() {
       const payload = {
-        movie_id : this.$route.params.movieId
+        movie_id: this.$route.params.movieId
       }
       this.$store.dispatch('getRelateMovie', payload)
     },
@@ -99,19 +99,21 @@ export default {
 </script>
 
 <style scoped>
-.wrap{
-    margin: 50px;
+.wrap {
+  margin: 50px;
 }
-.movie-poster{
-    height: 500px;
+
+.movie-poster {
+  height: 500px;
 }
+
 #likemovies .col {
   flex: 0 0 50%;
   max-width: 50%;
   margin-bottom: 20px;
 }
 
-.collapse{
+.collapse {
   background-color: black;
 }
 </style>

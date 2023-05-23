@@ -3,9 +3,12 @@
     <h1 class="text-start">추천 영화들</h1>
     <div id="carouselRecommendControls" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+          aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+          aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+          aria-label="Slide 3"></button>
       </div>
       <div class="carousel-inner">
         <div class="carousel-item" v-for="( movies, idx ) in dividedMovies" :key="idx" :class="{ 'active': idx === 0 }">
@@ -45,7 +48,7 @@ export default {
   mounted() {
     // console.log("ready...");
     window.addEventListener('resize', this.handleResize)
-	},
+  },
   beforeDestroy() {
     // console.log("beforeDestroy...");
     window.removeEventListener('resize', this.handleResize)
@@ -53,9 +56,6 @@ export default {
   computed: {
     recommendmovies() {
       return this.$store.state.movie.recommendmovies
-    },
-    LargeScreen() {
-      return this.isLargeScreen
     },
     dividedMovies() {
       if (this.recommendmovies === undefined) {
@@ -66,10 +66,8 @@ export default {
       const chunks = []
       let j = recommendmovies.length
 
-      const cardCount = this.LargeScreen
-
-      for (let i = 0; i < j; i += cardCount) {
-        chunks.push(recommendmovies.slice(i, i + cardCount))
+      for (let i = 0; i < j; i += this.isLargeScreen) {
+        chunks.push(recommendmovies.slice(i, i + this.isLargeScreen))
       }
       return chunks
     },
@@ -103,5 +101,4 @@ export default {
   text-align: center;
   cursor: pointer;
 }
-
 </style>
