@@ -4,8 +4,8 @@
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item" v-for="( movies, idx ) in dividedMovies" :key="idx" :class="{ 'active': idx === 0 }">
-          <div class=" row row-cols-3 row-cols-md-5 g-3">
-            <RecentMovieListItem v-for="movie in movies" :key="movie.id" :movie="movie" />
+          <div class="row row-cols-1 row-cols-md-3 row-cols-xl-5 g-3">
+            <CardItem v-for="movie in movies" :key="movie.id" :movie="movie" />
           </div>
         </div>
       </div>
@@ -22,12 +22,12 @@
 </template>
 
 <script>
-import RecentMovieListItem from '@/components/movie/RecentMovieListItem.vue'
+import CardItem from '@/components/movie/CardItem.vue'
 
 export default {
   name: 'RecentMovieList',
   components: {
-    RecentMovieListItem,
+    CardItem,
   },
   data() {
     return {
@@ -61,7 +61,7 @@ export default {
       const chunks = []
       let j = recentmovies.length
 
-      const cardCount = this.LargeScreen ? 5 : 3;
+      const cardCount = this.LargeScreen
 
       for (let i = 0; i < j; i += cardCount) {
         chunks.push(recentmovies.slice(i, i + cardCount))
@@ -71,11 +71,14 @@ export default {
   },
   methods: {
     handleResize() {
-      if (window.innerWidth >= 768) {
-        this.isLargeScreen = true
+      if (window.innerWidth >= 1200) {
+        this.isLargeScreen = 5
         return
       }
-      this.isLargeScreen = false
+      else if (window.innerWidth >= 768) {
+        this.isLargeScreen = 3
+      }
+      else this.isLargeScreen = 1
     }
   }
 }
