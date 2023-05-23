@@ -45,6 +45,7 @@ export default {
 
 .card-body {
   padding: 10px;
+  color: black;
 }
 
 .card-title {

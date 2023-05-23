@@ -87,7 +87,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const allowAllPages = ['login', 'signup', 'main']
+  const allowAllPages = ['login', 'signup', 'main', 'movies', 'MovieDetail']
   const isAuthRequired = !allowAllPages.includes(to.name)
 
   // if (to.meta.requiresAuth && !store.getters['isLogined']) {

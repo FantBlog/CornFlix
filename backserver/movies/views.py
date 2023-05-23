@@ -62,7 +62,7 @@ def review_list(request, movie_pk):
         movie = get_object_or_404(Movie, pk=movie_pk)
         serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            review = serializer.save(movie=movie)
+            review = serializer.save(movie=movie, user_id=request.user.pk)
             serializer = ReviewDetailSerializer(review)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 

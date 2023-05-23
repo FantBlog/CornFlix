@@ -1,10 +1,12 @@
-import { fetchProfile, fetchReview, fetchFollow } from '@/api/user/profile';
+import { fetchProfile, fetchFollow, fetchPutProfile } from '@/api/user/profile';
+
+import router from '@/router'
 
 export default {
   state: {
     profile: {},
-    reviews: [],
     isFollowing: false,
+    changeprofile: true,
   },
   mutations: {
     GET_PROFILE(state, profile) {
@@ -24,7 +26,10 @@ export default {
     },
     GET_REVIEW(state, reviews) {
       state.reviews = reviews
-    }
+    },
+    TOGGLE_PROFILE(state) {
+      state.changeprofile = !state.changeprofile
+    },
   },
   actions: {
     getProfile(context, payload) {
@@ -33,17 +38,6 @@ export default {
         .then((res) => {
           // console.log(res.data)
           context.commit('GET_PROFILE', res.data)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    },
-    getReview(context, payload) {
-      const user_name = payload.user_name
-      fetchReview({ user_name })
-        .then((res) => {
-          // console.log(res, context)
-          context.commit('GET_REVIEW', res.data)
         })
         .catch((err) => {
           console.log(err)
@@ -59,6 +53,22 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    putProfile(context, payload) {
+      const user_name = payload.user_name
+      const profile_image = payload.image
+      const content = payload.content
+      fetchPutProfile({ user_name, profile_image, content })
+        .then(() => {
+          router.go()
+          // context.commit('GET_PROFILE', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    toggleProfile(context) {
+      context.commit('TOGGLE_PROFILE')
     },
   },
 }

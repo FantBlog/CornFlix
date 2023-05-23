@@ -1,10 +1,11 @@
 <template>
   <div class="container-lg p-0">
-    <ProfileTitle />
+    <ProfileTitle v-if="changeprofile" />
+    <ProfileTitlePut v-else />
     <div class="container-lg p-0">
       <div class="wrap">
         <LikeMovieList :like_movies="profile.like_movies" />
-        <ReviewList :reviews="reviews"/>
+        <ReviewList :reviews="profile.review_set" />
         <PostList :posts="profile.post_set" />
       </div>
     </div>
@@ -13,6 +14,7 @@
   
 <script>
 import ProfileTitle from '@/components/profile/ProfileTitle'
+import ProfileTitlePut from '@/components/profile/ProfileTitlePut'
 import LikeMovieList from '@/components/profile/LikeMovieList'
 import ReviewList from '@/components/profile/ReviewList'
 import PostList from '@/components/profile/PostList'
@@ -20,6 +22,7 @@ import PostList from '@/components/profile/PostList'
 export default {
   components: {
     ProfileTitle,
+    ProfileTitlePut,
     LikeMovieList,
     ReviewList,
     PostList,
@@ -28,8 +31,8 @@ export default {
     profile() {
       return this.$store.state.profile.profile
     },
-    reviews() {
-      return this.$store.state.profile.reviews
+    changeprofile() {
+      return this.$store.state.profile.changeprofile
     },
   },
   created() {
@@ -45,7 +48,6 @@ export default {
       const user_name = this.$route.params.username
       const payload = { user_name }
       this.$store.dispatch('getProfile', payload)
-      this.$store.dispatch('getReview', payload)
     },
   },
 }

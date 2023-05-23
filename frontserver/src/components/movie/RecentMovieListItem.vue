@@ -3,9 +3,9 @@
   <div class="col">
     <div class="movie-list-item card" @click="goToDetailPage">
       <img :src=movie.poster_path class="card-img-top" alt="...">
-      <!-- <div class="card-body"> -->
-        <!-- <h5 class="card-title">{{ movie.title }}</h5> -->
-      <!-- </div> -->
+      <div class="card-body">
+        <h5 class="card-title">{{ movie.title }}</h5>
+      </div>
     </div>
   </div>
   <!-- <div class="movie-list-item card" @click="goToDetailPage">
@@ -52,13 +52,17 @@ export default {
   object-fit: cover;
 }
 
-/* .card-body {
+.card-body {
   padding: 10px;
-} */
-/* .card-title {
+}
+
+.card-title {
   font-size: 16px;
   font-weight: bold;
-  margin-bottom: 0;
+  /* margin-bottom: 0; */
   color: black;
-} */
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0;
+}
 </style>
