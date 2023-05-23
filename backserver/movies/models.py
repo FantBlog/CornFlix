@@ -24,7 +24,6 @@ class Movie(models.Model):
 
 
 class Review(models.Model):
-    title = models.CharField(max_length=100)
     content = models.TextField()
     rank = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
