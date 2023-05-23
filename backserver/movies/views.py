@@ -1,15 +1,13 @@
 from django.shortcuts import get_list_or_404, get_object_or_404
-from django.db.models import Case, When, F, FloatField
+from django.db.models import Case, When
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.decorators import permission_classes
-from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
-import datetime
-from .models import Movie, Review
 from accounts.models import User
+from .models import Movie, Review
 from .serializers import *
 from .relate_movie import get_relate_movies
+import datetime
 
 
 @api_view(["GET", "POST"])
@@ -51,14 +49,10 @@ def review_list(request, movie_pk):
     if request.method == "GET":
         movie = Movie.objects.get(pk=movie_pk)
         reviews = movie.review_set.all()
-        serializer = ReviewSerializer(reviews, many=True)
+        serializer = ReviewDetailSerializer(reviews, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     elif request.method == "POST":
-        if not request.user.is_authenticated:
-            context = {"error": "로그인이 필요한 작업입니다."}
-            return Response(context, status=status.HTTP_400_BAD_REQUEST)
-
         movie = get_object_or_404(Movie, pk=movie_pk)
         serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -92,22 +86,25 @@ def relate_movie_list(request, movie_pk):
         movie = get_object_or_404(Movie, pk=movie_pk)
         title = movie.title
         title_list = get_relate_movies(title)
+
         # 결과 순서를 저장
         ordering = Case(
             *[When(title=title, then=pos) for pos, title in enumerate(title_list)]
         )
+
         # 결과 조회 및 저장된 순서로 정렬
-        movie = Movie.objects.filter(title__in=title_list).order_by(ordering)
+        movie = Movie.objects.filter(title__in=title_list).order_by(ordering)[:15]
 
         serializer = MovieListSerializer(movie, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(["GET"])
-def genre_movie_list(request, genre_id):
+def genre_movie_list(request, genre_id, page):
     if request.method == "GET":
+        pagenum = page - 1
         genres = [genre_id]
-        movie = Movie.objects.filter(genres__in=genres).order_by("-score")[:15]
+        movie = Movie.objects.filter(genres__in=genres).order_by("-score")[pagenum:pagenum+15]
 
         serializer = MovieListSerializer(movie, many=True)
 
@@ -115,11 +112,12 @@ def genre_movie_list(request, genre_id):
 
 
 @api_view(["GET"])
-def recent_movie_list(request):
+def recent_movie_list(request, page):
     if request.method == "GET":
+        pagenum = page - 1
         movie = Movie.objects.filter(release_date__lte=datetime.date.today()).order_by(
             "-release_date"
-        )[:15]
+        )[pagenum:pagenum+15]
 
         serializer = MovieListSerializer(movie, many=True)
 
@@ -127,13 +125,13 @@ def recent_movie_list(request):
 
 
 @api_view(["GET"])
-def recommend_movie_list(request):
+def recommend_movie_list(request, page):
     if request.method == "GET":
-        defaultmovie = Movie.objects.order_by("-score")[:20]
+        pagenum = page - 1
+        defaultmovie = Movie.objects.order_by("-score")[pagenum:pagenum+15]
         defaultSerializer = MovieListSerializer(defaultmovie, many=True)
 
         if request.user.is_authenticated:
-            # user = User.objects.get(user=request.user)
             user = User.objects.get(username=request.user)
             likemovies = user.like_movies.all()
             data_list = list(likemovies.values_list("genres", flat=True))
@@ -157,7 +155,7 @@ def recommend_movie_list(request):
             newmovie = movie
 
             serializers = MovieListSerializer(
-                newmovie.order_by("-score")[1:16], many=True
+                newmovie.order_by("-score")[pagenum+1:pagenum+16], many=True
             )
             return Response(serializers.data, status=status.HTTP_200_OK)
 

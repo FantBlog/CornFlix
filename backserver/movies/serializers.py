@@ -12,7 +12,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         )
         read_only_fields = ("user_id",)
 
-# 리뷰 GET (사용 안함)
+# 리뷰 GET
 class ReviewDetailSerializer(serializers.ModelSerializer):
     class UserDetailSerializer(serializers.ModelSerializer):
         class Meta:
@@ -57,18 +57,3 @@ class MovieListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = "__all__"
-
-
-class ReviewListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Review
-        fields = "__all__"
-
-
-class ReviewDetailSerializer(serializers.ModelSerializer):
-    movie = MovieSerializer()
-
-    class Meta:
-        model = Review
-        fields = "__all__"
-        read_only_fields = ("movie",)
