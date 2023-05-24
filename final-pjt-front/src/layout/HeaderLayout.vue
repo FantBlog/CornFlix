@@ -8,7 +8,10 @@
           </router-link>
         </div>
       </nav>
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
+      <div v-if="!isLogin">
+        <router-link :to="{ name: 'login' }" class="dropdown-item">Login</router-link>
+      </div>
+      <button v-else class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
         aria-controls="offcanvasDarkNavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -30,8 +33,8 @@
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><router-link v-if="!isLogin" :to="{ name: 'login' }" class="dropdown-item">Login</router-link></li>
-                <li><router-link v-if="!isLogin" :to="{ name: 'signup' }" class="dropdown-item">Signup</router-link></li>
+                <!-- <li><router-link v-if="!isLogin" :to="{ name: 'login' }" class="dropdown-item">Login</router-link></li> -->
+                <!-- <li><router-link v-if="!isLogin" :to="{ name: 'signup' }" class="dropdown-item">Signup</router-link></li> -->
                 <li><p v-if="isLogin" @click="logOut" class="dropdown-item">Logout</p></li>
               </ul>
             </li>
