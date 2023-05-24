@@ -29,7 +29,7 @@
                 </li>
                 <li><router-link v-if="!isLogin" :to="{ name: 'login' }" class="dropdown-item">Login</router-link></li>
                 <li><router-link v-if="!isLogin" :to="{ name: 'signup' }" class="dropdown-item">Signup</router-link></li>
-                <li @click="logOut"><router-link v-if="isLogin" :to="{ name: 'main' }" class="dropdown-item">Logout</router-link></li>
+                <li><p v-if="isLogin" @click="logOut" class="dropdown-item">Logout</p></li>
               </ul>
             </li>
             <li class="nav-item">
@@ -59,6 +59,7 @@ export default {
     logOut(event) {
       event.preventDefault();
       this.$store.dispatch('logOut')
+      this.$router.push({name:'movies'})
     }
   },
 };
