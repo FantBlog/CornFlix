@@ -38,19 +38,14 @@ export default {
     this.handleResize()
   },
   mounted() {
-    // console.log("ready...");
     window.addEventListener('resize', this.handleResize)
-	},
+  },
   beforeDestroy() {
-    // console.log("beforeDestroy...");
     window.removeEventListener('resize', this.handleResize)
   },
   computed: {
     recentmovies() {
       return this.$store.state.movie.recentmovies
-    },
-    LargeScreen() {
-      return this.isLargeScreen
     },
     dividedMovies() {
       if (this.recentmovies === undefined) {
@@ -61,10 +56,8 @@ export default {
       const chunks = []
       let j = recentmovies.length
 
-      const cardCount = this.LargeScreen
-
-      for (let i = 0; i < j; i += cardCount) {
-        chunks.push(recentmovies.slice(i, i + cardCount))
+      for (let i = 0; i < j; i += this.isLargeScreen) {
+        chunks.push(recentmovies.slice(i, i + this.isLargeScreen))
       }
       return chunks
     },

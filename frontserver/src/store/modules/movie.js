@@ -1,54 +1,69 @@
-import { fetchRecentMovies, fetchDetailMovie, fetchRecommendMovies, fetchRelateMovies, fetchGenreMovies } from '@/api/movie/index.js';
+import { fetchRecentMovies, fetchDetailMovie, fetchRecommendMovies, fetchRelateMovies, fetchGenreMovies, fetchTypeMovies } from '@/api/movie/index.js';
 
 export default {
   state: {
     recentmovies: [],
     recommendmovies: [],
     relatemovies: [],
-    genremovies: [],
+    typemovies: [],
     movie: null,
   },
   mutations: {
-    GET_RECENT_MOVIES(state, movies) {
-      state.recentmovies = movies;
+    GET_RECENT_MOVIES(state, movies) { // 최신 영화 리스트 
+      state.recentmovies = movies
     },
-    GET_RECOMMEND_MOVIES(state, movies) {
-      state.recommendmovies = movies;
+    GET_RECOMMEND_MOVIES(state, movies) { // 추천 영화 리스트
+      state.recommendmovies = movies
     },
-    GET_RELATE_MOVIE(state, movies) {
-      state.relatemovies = movies;
+    GET_TYPE_MOVIE(state, movies) { // 특정 장르 영화 리스트
+      state.typemovies = movies
     },
-    GET_GENRE_MOVIE(state, movie) {
-      state.genremovies = movie;
+    GET_DETAIL_MOVIE(state, movie) { // 영화 디테일
+      state.movie = movie
     },
-    GET_DETAIL_MOVIE(state, movie) {
-      state.movie = movie;
+    GET_RELATE_MOVIE(state, movies) { // 특정 영화 관련 영화
+      state.relatemovies = movies
     },
   },
   actions: {
-    getMovies(context) {
-      fetchRecentMovies()
+    getRecentMovies(context, payload) { // 최신 영화 리스트 
+      fetchRecentMovies(payload)
         .then((res) => {
-          // console.log(res, context)
           context.commit('GET_RECENT_MOVIES', res.data);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    getRecommendMovies(context) {
-      fetchRecommendMovies()
+    getRecommendMovies(context, payload) { // 추천 영화 리스트
+      fetchRecommendMovies(payload)
         .then((res) => {
-          // console.log(res, context)
           context.commit('GET_RECOMMEND_MOVIES', res.data);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    getDetailMovie(context, payload) {
-      const movie_id = payload.movie_id
-      fetchDetailMovie({ movie_id })
+    getGenreMovies(context, payload) { // 특정 장르 영화 리스트
+      fetchGenreMovies(payload)
+        .then((res) => {
+          context.commit('GET_TYPE_MOVIE', res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getTypeMovies(context, payload) { // 특정 장르 영화 리스트
+      fetchTypeMovies(payload)
+        .then((res) => {
+          context.commit('GET_TYPE_MOVIE', res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getDetailMovie(context, payload) { // 영화 디테일
+      fetchDetailMovie(payload)
         .then((res) => {
           context.commit('GET_DETAIL_MOVIE', res.data);
         })
@@ -56,21 +71,10 @@ export default {
           console.log(err);
         });
     },
-    getRelateMovie(context, payload) {
-      const movie_id = payload.movie_id
-      fetchRelateMovies({ movie_id })
+    getRelateMovie(context, payload) { // 특정 영화 관련 영화
+      fetchRelateMovies(payload)
         .then((res) => {
           context.commit('GET_RELATE_MOVIE', res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    getGenreMovies(context, payload) {
-      const genre_id = payload.genre_id
-      fetchGenreMovies({ genre_id })
-        .then((res) => {
-          context.commit('GET_GENRE_MOVIE', res.data);
         })
         .catch((err) => {
           console.log(err);

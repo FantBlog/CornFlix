@@ -24,8 +24,8 @@ export default {
   },
   methods: {
     getRecentMovies() {
-      this.$store.dispatch('getMovies')
-      this.$store.dispatch('getRecommendMovies')
+      this.$store.dispatch('getRecentMovies', { page: 1 })
+      this.$store.dispatch('getRecommendMovies', { page: 1 })
     }
   },
 }
