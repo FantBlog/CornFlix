@@ -65,7 +65,7 @@ export default {
     logOut(event) {
       event.preventDefault()
       this.$store.dispatch('logOut')
-      this.$router.push({ name: 'movies' })
+      this.$router.push({ name: 'main' })
     }
   },
 };
