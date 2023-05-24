@@ -1,11 +1,12 @@
 <template>
-  <div>
+  <div class="list-item-wrap">
     <router-link :to="{
       name: 'DetailPostView',
       params: {id: post.id }}">
       <div class="post-list-item">
-        <h1>{{ post.title }}</h1>
-        <p>{{ post.content }}</p>
+        <h4 class="text-start">{{ post.title }}</h4>
+        <p class="post-item-content text-start">{{ post.content }}</p>
+        <!-- <p>{{ post.user.username }}</p> -->
       </div>
     </router-link>
   </div>
@@ -28,7 +29,6 @@ a{
 }
 
 .post-list-item { 
-  color:white; 
   text-align:center; 
 }
 .post-list-item:hover { 
@@ -37,5 +37,9 @@ a{
   /* margin:-3px;  */
   border-radius:5px; 
 }
-
+.post-item-content{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;  
+}
 </style>

@@ -47,9 +47,11 @@ export default {
   },
   methods: {
     deletePostDetail() {
-      const post_id = this.$route.params.id;
-      const payload = { post_id };
-      this.$store.dispatch('deleteDetailPost', payload);
+      if (confirm("게시글을 삭제하시겠습니까?")){
+        const post_id = this.$route.params.id;
+        const payload = { post_id };
+        this.$store.dispatch('deleteDetailPost', payload);
+      }
     },
     putPost() {
       const post_id = this.$route.params.id;

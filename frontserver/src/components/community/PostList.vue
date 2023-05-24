@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1 class="text-start">게시글</h1>
+      <h1 class="list-wrap">게시글</h1>
+    <div class="text-end">
+      <button @click="createPost" class="btn btn-warning">글 작성하러 가기</button>
+    </div>
     <div>
       <PostListItem 
       v-for="post in posts" 
@@ -8,9 +11,6 @@
       :post="post"
       />
     </div>
-      <button @click="createPost">
-        [새글작성]
-      </button>
   </div>
 </template>
 
