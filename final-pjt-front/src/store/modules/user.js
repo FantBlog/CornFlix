@@ -2,6 +2,7 @@ import api from '@/api/base.js'
 import { fetchLogin, fetchSignup } from '@/api/user/index.js'
 
 import router from '@/router'
+import Swal from 'sweetalert2'
 
 export default {
   state: {
@@ -33,11 +34,17 @@ export default {
       const password2 = payload.password2
 
       fetchSignup({ username, password1, password2 })
-        .then((key) => {
-          context.commit('SAVE_TOKEN', key)
+        .then((res) => {
+          context.commit('SAVE_TOKEN', res.data.key)
+          context.commit('SAVE_USERNAME', username)
+          router.push({ name: 'main' })
         })
-        .catch((err) => {
-          console.log(err)
+        .catch(() => {
+          Swal.fire({
+            icon: 'error',
+            title: '회원가입에 실패했어요',
+            text: '정보를 다시 입력해주세요',
+          })
         })
     },
     logIn(context, payload) {
@@ -50,7 +57,13 @@ export default {
           context.commit('SAVE_USERNAME', username)
           router.push({ name: 'main' })
         })
-        .catch((err) => console.log(err))
+        .catch(() => {
+          Swal.fire({
+            icon: 'error',
+            title: '로그인에 실패했어요',
+            text: '정보를 다시 입력해주세요',
+          })
+        })
     },
     logOut(context) {
       context.commit('SAVE_TOKEN', null)
