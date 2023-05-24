@@ -1,7 +1,23 @@
 <template>
   <div>
-    <div class="container-lg mt-5">
-      <h1>{{ $route.query?.genreName }} {{ this.$route.params.type }} 영화들</h1>
+    <h1>{{ this.$route.params.type }} 영화들</h1>
+    <ul class="nav nav-tabs mx-5">
+      <li class="nav-item">
+        <p class="nav-link" :class="{active:this.$route.params.type === 'recent'}" aria-current="page" @click="typeMove('recent')">Recent</p>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" :class="{active:this.$route.params.type === 'recommend'}" @click="typeMove('recommend')">Recommend</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" :class="{active:this.$route.params.type === 'genre'}" data-bs-toggle="dropdown" role="button" aria-expanded="false">{{this.$route.params.type === 'genre' ? this.$route.query.genreName : 'Genre'}}</a>
+        <ul class="dropdown-menu">
+          <li v-for="genre in genres" :key="genre.id">
+            <a class="dropdown-item" @click="typeGenre(genre.id, genre.name)">{{genre.name}}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <div class="container-lg mt-4">
       <div class=" row row-cols-3 row-cols-md-5 g-3">
         <CardItem v-for="movie in typemovies" :key="movie.id" :movie="movie" />
       </div>
@@ -46,6 +62,9 @@ export default {
     this.getTypeMovies()
   },
   computed: {
+    genres() {
+      return this.$store.state.movie.genres
+    },
     typemovies() {
       return this.$store.state.movie.typemovies
     },
@@ -100,7 +119,25 @@ export default {
         this.$router.push(payload)
         this.$router.go()
       }
-    }
+    },
+    typeMove(type) {
+      const payload = {
+        name: 'typemovie',
+        params: { type, page: 1 },
+      }
+      this.$router.push(payload)
+      this.$router.go()
+    },
+    typeGenre(genreId, genreName) {
+      // type == 장르 이름 장르 아이디 받아와야댐
+      const payload = {
+        name: 'typemovie',
+        params: { type:'genre', page: 1 },
+        query: { genreId, genreName }
+      }
+      this.$router.push(payload)
+      this.$router.go()
+    },
   },
 }
 </script>
