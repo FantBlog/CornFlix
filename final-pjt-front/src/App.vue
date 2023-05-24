@@ -21,7 +21,14 @@ export default {
     showHeader() {
       return this.$store.state.showHeader
     }
-
+  },
+  created() {
+    this.getGenres()
+  },
+  methods: {
+    getGenres() {
+      this.$store.dispatch('getGenre')
+    },
   }
 }
 </script>
