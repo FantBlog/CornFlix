@@ -41,6 +41,21 @@ def post_detail(request, post_pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+@api_view(["POST"])
+def like(request, post_pk):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            post = Post.objects.get(pk=post_pk)
+            if post != request.user:
+                if post.like_users.filter(pk=request.user.pk).exists():
+                    post.like_users.remove(request.user)
+                else:
+                    post.like_users.add(request.user)
+            serializer = PostDetailSerializer(post)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+
 @api_view(["GET", "POST"])
 def comment_list(request, post_pk):
     if request.method == "GET":
@@ -57,14 +72,9 @@ def comment_list(request, post_pk):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-@api_view(["GET", "PUT", "DELETE"])
+@api_view(["PUT", "DELETE"])
 def comment_detail(request, comment_pk):
-    if request.method == "GET":
-        comments = Comment.objects.get(pk=comment_pk)
-        serializer = CommentDetailSerializer(comments)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    elif request.method == "PUT":
+    if request.method == "PUT":
         comment = Comment.objects.get(pk=comment_pk)
         serializer = CommentListSerializer(instance=comment, data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -75,18 +85,3 @@ def comment_detail(request, comment_pk):
         comment = Comment.objects.get(pk=comment_pk)
         comment.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-@api_view(["POST"])
-def like(request, post_pk):
-    if request.method == "POST":
-        if request.user.is_authenticated:
-            post = Post.objects.get(pk=post_pk)
-            if post != request.user:
-                if post.like_users.filter(pk=request.user.pk).exists():
-                    post.like_users.remove(request.user)
-                else:
-                    post.like_users.add(request.user)
-            serializer = PostDetailSerializer(post)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_401_UNAUTHORIZED)

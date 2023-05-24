@@ -10,38 +10,34 @@ from .relate_movie import get_relate_movies
 import datetime
 
 
-@api_view(["GET", "POST"])
+@api_view(["GET"])
 def movie_list(request):
     if request.method == "GET":
         movies = get_list_or_404(Movie)
         serializer = MovieListSerializer(movies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    elif request.method == "POST":
-        serializer = MovieSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-
-@api_view(["GET", "PUT", "DELETE"])
+@api_view(["GET"])
 def movie_detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
-
     if request.method == "GET":
         serializer = MovieDetailSerializer(movie)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    elif request.method == "PUT":
-        serializer = MovieSerializer(instance=movie, data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
 
-    elif request.method == "DELETE":
-        movie.delete()
-        context = {"delete": f"{movie_pk}번 영화 삭제됨"}
-        return Response(context, status=status.HTTP_204_NO_CONTENT)
+@api_view(["POST"])
+def like(request, movie_pk):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            movie = Movie.objects.get(pk=movie_pk)
+            if movie.like_users.filter(pk=request.user.pk).exists():
+                movie.like_users.remove(request.user)
+            else:
+                movie.like_users.add(request.user)
+            serializer = MovieDetailSerializer(movie)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
 @api_view(["GET", "POST"])
@@ -61,7 +57,7 @@ def review_list(request, movie_pk):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-@api_view(["GET", "PUT", "DELETE"])
+@api_view(["PUT", "DELETE"])
 def review_detail(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
 
@@ -100,24 +96,12 @@ def relate_movie_list(request, movie_pk):
 
 
 @api_view(["GET"])
-def genre_movie_list(request, genre_id, page):
-    if request.method == "GET":
-        pagenum = (page - 1) * 15
-        genres = [genre_id]
-        movie = Movie.objects.filter(genres__in=genres).order_by("-score")[pagenum:pagenum+15]
-
-        serializer = MovieListSerializer(movie, many=True)
-
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-@api_view(["GET"])
 def recent_movie_list(request, page):
     if request.method == "GET":
         pagenum = (page - 1) * 15
         movie = Movie.objects.filter(release_date__lte=datetime.date.today()).order_by(
             "-release_date"
-        )[pagenum:pagenum+15]
+        )[pagenum : pagenum + 15]
 
         serializer = MovieListSerializer(movie, many=True)
 
@@ -128,7 +112,7 @@ def recent_movie_list(request, page):
 def recommend_movie_list(request, page):
     if request.method == "GET":
         pagenum = (page - 1) * 15
-        defaultmovie = Movie.objects.order_by("-score")[pagenum:pagenum+15]
+        defaultmovie = Movie.objects.order_by("-score")[pagenum : pagenum + 15]
         defaultSerializer = MovieListSerializer(defaultmovie, many=True)
 
         if request.user.is_authenticated:
@@ -155,22 +139,22 @@ def recommend_movie_list(request, page):
             newmovie = movie
 
             serializers = MovieListSerializer(
-                newmovie.order_by("-score")[pagenum+1:pagenum+16], many=True
+                newmovie.order_by("-score")[pagenum + 1 : pagenum + 16], many=True
             )
             return Response(serializers.data, status=status.HTTP_200_OK)
 
         return Response(defaultSerializer.data, status=status.HTTP_200_OK)
 
 
-@api_view(["POST"])
-def like(request, movie_pk):
-    if request.method == "POST":
-        if request.user.is_authenticated:
-            movie = Movie.objects.get(pk=movie_pk)
-            if movie.like_users.filter(pk=request.user.pk).exists():
-                movie.like_users.remove(request.user)
-            else:
-                movie.like_users.add(request.user)
-            serializer = MovieDetailSerializer(movie)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
+@api_view(["GET"])
+def genre_movie_list(request, genre_id, page):
+    if request.method == "GET":
+        pagenum = (page - 1) * 15
+        genres = [genre_id]
+        movie = Movie.objects.filter(genres__in=genres).order_by("-score")[
+            pagenum : pagenum + 15
+        ]
+
+        serializer = MovieListSerializer(movie, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
