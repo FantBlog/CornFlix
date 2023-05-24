@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="d-flex flex-column min-vh-100 j">
+  <div id="app" class="d-flex flex-column min-vh-100">
     <HeaderLayout />
     <router-view class="flex-fill main-wrap" />
     <FooterLayout />
@@ -9,6 +9,7 @@
 <script>
 import HeaderLayout from '@/layout/HeaderLayout.vue'
 import FooterLayout from '@/layout/FooterLayout.vue'
+import '@fortawesome/fontawesome-free/css/all.css'
 
 export default {
   components: {
@@ -33,7 +34,7 @@ export default {
 
 .main-wrap {
   margin: 70px auto 20px;
-  max-width: 100%;
+  max-width: 90%;
   box-sizing: border-box;
 }
 
