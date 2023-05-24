@@ -92,7 +92,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
 ]
 
-ROOT_URLCONF = "backserver.urls"
+ROOT_URLCONF = "final-pjt-back.urls"
 
 TEMPLATES = [
     {
@@ -110,7 +110,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "backserver.wsgi.application"
+WSGI_APPLICATION = "final-pjt-back.wsgi.application"
 
 
 # Database
