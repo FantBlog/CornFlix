@@ -107,7 +107,9 @@ def recent_movie_list(request, page):
 
         response = {
             "movies": serializer.data,
-            "total_length": len(Movie.objects.all()),
+            "total_length": len(
+                Movie.objects.filter(release_date__lte=datetime.date.today())
+            ),
         }
         return Response(response, status=status.HTTP_200_OK)
 
