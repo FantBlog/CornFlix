@@ -1,6 +1,6 @@
 <template>
-  <div class="container-lg mt-5">
-    <!-- Modal -->
+  <div class="container-lg">
+    <!-- Poster Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -8,6 +8,7 @@
         </div>
       </div>
     </div>
+    <!-- movie detail -->
     <div class="wrap container text-center">
       <div id="likemovies" class="row justify-content-md-center align-items-center">
         <div class="col-md-4">

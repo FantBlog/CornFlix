@@ -1,6 +1,9 @@
 <template>
   <div class="container-lg mt-5">
-    <h1 class="text-start">추천 영화들</h1>
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="text-start">추천 영화들</h1>
+      <router-link :to="{ name: 'typemovie', params: { type: 'recommend', page: '1' }}">더보기</router-link>
+    </div>
     <div id="carouselRecommendControls" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item" v-for="( movies, idx ) in dividedMovies" :key="idx" :class="{ 'active': idx === 0 }">
