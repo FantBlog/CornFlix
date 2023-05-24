@@ -1,6 +1,5 @@
 <template>
   <div class="about">
-    <h1>Home page</h1>
     <RecentMovieList />
     <RecommendMovieList />
   </div>
