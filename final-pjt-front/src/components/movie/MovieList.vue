@@ -22,12 +22,33 @@
         <CardItem v-for="movie in typemovies" :key="movie.id" :movie="movie" />
       </div>
     </div>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center mb-0">
         <li class="page-item" v-if="page > 1">
           <a class="page-link" @click="goPage(page - 10)"><span aria-hidden="true">&laquo;</span></a>
         </li>
-        <li class="page-item" v-if="!lentypemovies">
+        <li class="page-item" v-if="page > lastpage - 4">
+          <p class="page-link" @click="goPage(page - 9)">{{ page - 9 }}</p>
+        </li>
+        <li class="page-item" v-if="page > lastpage - 3">
+          <p class="page-link" @click="goPage(page - 8)">{{ page - 8 }}</p>
+        </li>
+        <li class="page-item" v-if="page > lastpage - 2">
+          <p class="page-link" @click="goPage(page - 7)">{{ page - 7 }}</p>
+        </li>
+        <li class="page-item" v-if="page > lastpage - 1">
+          <p class="page-link" @click="goPage(page - 6)">{{ page - 6 }}</p>
+        </li>
+        <li class="page-item" v-if="page > lastpage">
+          <p class="page-link" @click="goPage(page - 5)">{{ page - 5 }}</p>
+        </li>
+        <li class="page-item" v-if="page > 4">
+          <p class="page-link" @click="goPage(page - 4)">{{ page - 4 }}</p>
+        </li>
+        <li class="page-item" v-if="page > 3">
+          <p class="page-link" @click="goPage(page - 3)">{{ page - 3 }}</p>
+        </li>
+        <li class="page-item" v-if="page > 2">
           <p class="page-link" @click="goPage(page - 2)">{{ page - 2 }}</p>
         </li>
         <li class="page-item" v-if="page > 1">
@@ -36,17 +57,43 @@
         <li class="page-item active">
           <p class="page-link" @click="goPage(page)">{{ page }}</p>
         </li>
-        <li class="page-item" v-if="lentypemovies">
+        <li class="page-item" v-if="page !== lastpage">
           <p class="page-link" @click="goPage(page + 1)">{{ page + 1 }}</p>
         </li>
-        <li class="page-item" v-if="page === 1">
+        <li class="page-item" v-if="page < lastpage - 1">
           <p class="page-link" @click="goPage(page + 2)">{{ page + 2 }}</p>
         </li>
-        <li class="page-item" v-if="lentypemovies">
+        <li class="page-item" v-if="page < lastpage - 2">
+          <p class="page-link" @click="goPage(page + 3)">{{ page + 3 }}</p>
+        </li>
+        <li class="page-item" v-if="page < lastpage - 3">
+          <p class="page-link" @click="goPage(page + 4)">{{ page + 4 }}</p>
+        </li>
+        <li class="page-item" v-if="page < 5">
+          <p class="page-link" @click="goPage(page + 5)">{{ page + 5 }}</p>
+        </li>
+        <li class="page-item" v-if="page < 6">
+          <p class="page-link" @click="goPage(page + 6)">{{ page + 6 }}</p>
+        </li>
+        <li class="page-item" v-if="page < 7">
+          <p class="page-link" @click="goPage(page + 7)">{{ page + 7 }}</p>
+        </li>
+        <li class="page-item" v-if="page < 8">
+          <p class="page-link" @click="goPage(page + 8)">{{ page + 8 }}</p>
+        </li>
+        <li class="page-item" v-if="page !== lastpage">
           <p class="page-link" @click="goPage(page + 10)"><span aria-hidden="true">&raquo;</span></p>
         </li>
       </ul>
     </nav>
+    <div class="d-flex justify-content-center">
+      <div class="input-group mb-3 w-25">
+        <span class="input-group-text">1 ~ </span>
+        <input type="number" class="form-control" v-model="inputpage">
+        <span class="input-group-text">~ {{ lastpage }} page</span>
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="goPage(inputpage)">[이동]</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -55,6 +102,11 @@ import CardItem from '@/components/movie/CardItem.vue'
 
 export default {
   name: 'TypeMovieList',
+  data() {
+    return {
+      inputpage:0,
+    }
+  },
   components: {
     CardItem,
   },
@@ -68,8 +120,8 @@ export default {
     typemovies() {
       return this.$store.state.movie.typemovies
     },
-    lentypemovies() {
-      return this.$store.state.movie.typemovies.length === 15
+    lastpage() {
+      return Math.ceil(this.$store.state.movie.movie_count/15)
     },
     page() {
       return Number(this.$route.params.page)
@@ -79,6 +131,7 @@ export default {
     getTypeMovies() {
       const type = this.$route.params.type
       const page = this.$route.params.page
+      this.inputpage = this.$route.params.page
 
       // 타입에 따라서 dispatch가 달라져야함
       if (type === 'genre') {
@@ -98,6 +151,13 @@ export default {
       }
     },
     goPage(nextpage) {
+      if (nextpage === null) {
+        alert('페이지 번호를 입력하세요')
+        return
+      }
+      if (nextpage > this.lastpage) nextpage = this.lastpage
+      if (nextpage < 1) nextpage = 1
+      
       const type = this.$route.params.type
 
       if (type === 'genre') {
