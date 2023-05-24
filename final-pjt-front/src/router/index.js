@@ -29,6 +29,11 @@ const routes = [
     component: MainView
   },
   {
+    path: '/notfound',
+    name: 'notfound',
+    component: NotFoundErr
+  },
+  {
     path: '/movies/:type/:page/',
     name: 'typemovie',
     component: MovieList,
@@ -80,10 +85,8 @@ const routes = [
   },
   {
     path: '*',
-    name: 'notfound',
-    component: NotFoundErr
+    redirect: '/notfound'
   },
-
 ]
 
 const router = new VueRouter({
@@ -93,7 +96,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const allowAllPages = ['login', 'signup', 'main', 'movies', 'MovieDetail']
+  const allowAllPages = ['login', 'signup', 'main', 'movies', 'MovieDetail', 'notfound']
   const isAuthRequired = !allowAllPages.includes(to.name)
 
   // if (to.meta.requiresAuth && !store.getters['isLogined']) {
