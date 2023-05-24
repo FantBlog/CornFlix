@@ -2,14 +2,6 @@
   <div class="container-lg mt-5">
     <h1 class="text-start">추천 영화들</h1>
     <div id="carouselRecommendControls" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-          aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-          aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-          aria-label="Slide 3"></button>
-      </div>
       <div class="carousel-inner">
         <div class="carousel-item" v-for="( movies, idx ) in dividedMovies" :key="idx" :class="{ 'active': idx === 0 }">
           <div class="row row-cols-1 row-cols-md-3 row-cols-xl-5 g-3">
@@ -17,14 +9,6 @@
           </div>
         </div>
       </div>
-      <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselRecommendControls" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselRecommendControls" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button> -->
     </div>
   </div>
 </template>
