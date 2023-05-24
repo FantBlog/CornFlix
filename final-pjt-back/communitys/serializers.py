@@ -4,6 +4,11 @@ from accounts.models import User
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    class UserDetailSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ("profile_image", "username")
+    user = UserDetailSerializer()
     class Meta:
         model = Comment
         fields = "__all__"

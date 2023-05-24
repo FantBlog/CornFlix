@@ -1,14 +1,16 @@
 <template>
   <div>
-    <h1>게시판</h1>
-    <PostListItem 
-    v-for="post in posts" 
-    :key="post.id" 
-    :post="post"
-    />
-    <button @click="createPost">
-      [새글작성]
-    </button>
+      <h1 class="list-wrap">게시글</h1>
+    <div class="text-end">
+      <button @click="createPost" class="btn btn-warning">글 작성하러 가기</button>
+    </div>
+    <div>
+      <PostListItem 
+      v-for="post in posts" 
+      :key="post.id" 
+      :post="post"
+      />
+    </div>
   </div>
 </template>
 
@@ -33,5 +35,4 @@ export default {
 </script>
 
 <style>
-
 </style>

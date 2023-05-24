@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>community</h1>
     <postList></postList>
   </div>
 </template>

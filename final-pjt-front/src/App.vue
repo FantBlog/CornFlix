@@ -3,7 +3,7 @@
     <div v-if="showHeader">
       <HeaderLayout/><br><br>
     </div>
-    <router-view class="flex-fill" />
+    <router-view class="flex-fill main-wrap" />
     <FooterLayout v-if="showHeader"/>
   </div>
 </template>
@@ -11,6 +11,7 @@
 <script>
 import HeaderLayout from '@/layout/HeaderLayout.vue'
 import FooterLayout from '@/layout/FooterLayout.vue'
+import '@fortawesome/fontawesome-free/css/all.css'
 
 export default {
   components: {
@@ -39,6 +40,13 @@ export default {
   font-family: 'Gowun Batang', serif;
   font-size: 24px
 }
+
+.main-nav-wrap {
+  margin: 70px auto 20px;
+  max-width: 90%;
+  box-sizing: border-box;
+}
+
 /* @font-face {
     font-family: 'SUITE-Regular';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');

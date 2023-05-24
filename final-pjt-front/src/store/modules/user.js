@@ -35,7 +35,7 @@ export default {
 
       fetchSignup({ username, password1, password2 })
         .then((res) => {
-          context.commit('SAVE_TOKEN', res.data.key)
+          context.commit('SAVE_TOKEN', res)
           context.commit('SAVE_USERNAME', username)
           router.push({ name: 'main' })
         })

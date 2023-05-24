@@ -1,13 +1,20 @@
 <template>
-  <div>
-    <h1>게시글 수정</h1>
-    <form @submit.prevent="putPost">
-      <label for="title">제목 : </label>
-      <input type="text" id="title" v-model.trim="title"><br>
-      <label for="content">내용 : </label>
-      <textarea id="content" cols="30" rows="10" v-model="content"></textarea><br>
-      <input type="submit" id="submit">
-    </form>
+  <div class="container d-flex justify-content-center">
+    <div class="col-lg-6">
+      <h1>게시글 수정</h1>
+      <form @submit.prevent="putPost" class="mt-4">
+        <div class="mb-3">
+          <input type="text" id="title" v-model.trim="title" class="form-control" value="this.content">
+        </div>
+        <div class="mb-3">
+          <textarea id="content" cols="30" rows="10" v-model="content" class="form-control"></textarea>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+          <button type="submit" class="btn btn-primary" :disabled="!title || !content">수정완료</button>
+          <!-- <input type="submit" id="submit"> -->
+        </div>        
+      </form>
+    </div>
   </div>
 </template>
 
