@@ -147,6 +147,14 @@ def recommend_movie_list(request, page):
 
 
 @api_view(["GET"])
+def genre_list(request):
+    if request.method == "GET":
+        genre = Genre.objects.all()
+        serializer = GenreSerializer(genre, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
 def genre_movie_list(request, genre_id, page):
     if request.method == "GET":
         pagenum = (page - 1) * 15

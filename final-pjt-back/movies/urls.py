@@ -11,5 +11,6 @@ urlpatterns = [
     path("relate/<int:movie_pk>/", views.relate_movie_list, ""),
     path("recent/<int:page>/", views.recent_movie_list, ""),
     path("recommend/<int:page>/", views.recommend_movie_list, ""),
+    path("genre/", views.genre_list, ""),
     path("genre/<int:genre_id>/<int:page>/", views.genre_movie_list, ""),
 ]
