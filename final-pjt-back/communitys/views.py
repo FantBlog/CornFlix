@@ -10,7 +10,7 @@ from .serializers import *
 @api_view(["GET", "POST"])
 def post_list(request):
     if request.method == "GET":
-        posts = Post.objects.all()
+        posts = Post.objects.order_by("-created_at")
         serializer = PostListSerializer(posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
