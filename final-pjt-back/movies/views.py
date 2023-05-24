@@ -105,7 +105,11 @@ def recent_movie_list(request, page):
 
         serializer = MovieListSerializer(movie, many=True)
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        response = {
+            "movies": serializer.data,
+            "total_length": len(Movie.objects.all()),
+        }
+        return Response(response, status=status.HTTP_200_OK)
 
 
 @api_view(["GET"])
@@ -128,7 +132,11 @@ def recommend_movie_list(request, page):
                 totallike += 1
 
             if totallike == 0:
-                return Response(defaultSerializer.data, status=status.HTTP_200_OK)
+                response = {
+                    "movies": defaultSerializer.data,
+                    "total_length": len(Movie.objects.all()),
+                }
+                return Response(response, status=status.HTTP_200_OK)
 
             likegenres = list(sorted(likegenres, key=lambda x: -likegenres[x]))
 
@@ -136,14 +144,21 @@ def recommend_movie_list(request, page):
             genres = likegenres[0:size]
             movie = Movie.objects.filter(genres__in=genres)
 
-            newmovie = movie
-
-            serializers = MovieListSerializer(
-                newmovie.order_by("-score")[pagenum + 1 : pagenum + 16], many=True
+            serializer = MovieListSerializer(
+                movie.order_by("-score")[pagenum + 1 : pagenum + 16], many=True
             )
-            return Response(serializers.data, status=status.HTTP_200_OK)
 
-        return Response(defaultSerializer.data, status=status.HTTP_200_OK)
+            response = {
+                "movies": serializer.data,
+                "total_length": len(Movie.objects.filter(genres__in=genres)),
+            }
+            return Response(response, status=status.HTTP_200_OK)
+
+        response = {
+            "movies": defaultSerializer.data,
+            "total_length": len(Movie.objects.all()),
+        }
+        return Response(response, status=status.HTTP_200_OK)
 
 
 @api_view(["GET"])
@@ -165,4 +180,8 @@ def genre_movie_list(request, genre_id, page):
 
         serializer = MovieListSerializer(movie, many=True)
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        response = {
+            "movies": serializer.data,
+            "total_length": len(Movie.objects.filter(genres__in=genres)),
+        }
+        return Response(response, status=status.HTTP_200_OK)

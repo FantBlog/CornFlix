@@ -9,16 +9,18 @@ export default {
     relatemovies: [],
     typemovies: [],
     movie: null,
+    movie_count: null,
   },
   mutations: {
     GET_RECENT_MOVIES(state, movies) { // 최신 영화 리스트 
-      state.recentmovies = movies
+      state.recentmovies = movies.movies
     },
     GET_RECOMMEND_MOVIES(state, movies) { // 추천 영화 리스트
-      state.recommendmovies = movies
+      state.recommendmovies = movies.movies
     },
     GET_TYPE_MOVIE(state, movies) { // 특정 장르 영화 리스트
-      state.typemovies = movies
+      state.typemovies = movies.movies
+      state.movie_count = movies.total_length
     },
     GET_DETAIL_MOVIE(state, movie) { // 영화 디테일
       state.movie = movie
@@ -61,6 +63,7 @@ export default {
     getTypeMovies(context, payload) { // 특정 장르 영화 리스트
       fetchTypeMovies(payload)
         .then((res) => {
+          console.log(res)
           context.commit('GET_TYPE_MOVIE', res.data);
         })
         .catch((err) => {
