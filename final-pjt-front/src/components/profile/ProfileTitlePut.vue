@@ -7,11 +7,13 @@
       <div class="content">
         <div class="img-container">
           <img :src="profileImage" alt="" class="img-thumbnail rounded-circle float-start"
-            style="width: 120px;height: 120px;">
+            style="width: 120px;height: 120px;" v-if="!inputimage">
+          <img :src="inputimage?.preview" class="img-thumbnail rounded-circle float-start"
+              style="width: 120px; height: 120px;" v-else>
           <div class="image-upload">
             <label for="file-input" @change="handleFileUpload">
               <img src="@/assets/changeimage.png" class="img-thumbnail rounded-circle float-start"
-                style="width: 120px;height: 120px;" />
+                style="width: 120px; height: 120px;" />
             </label>
 
             <input id="file-input" type="file" style="visibility: hidden;" @change="handleFileUpload" />
@@ -42,6 +44,7 @@ export default {
     return {
       selectedFile: null,
       content: "",
+      inputimage: null,
     }
   },
   computed: {
@@ -63,6 +66,11 @@ export default {
   methods: {
     handleFileUpload(event) {
       this.selectedFile = event.target.files[0]
+      this.inputimage = {
+        file:event.target.files[0],
+        preview: URL.createObjectURL(event.target.files[0])
+      }
+      console.log(this.inputimage.preview)
     },
     uploadImage() {
       const user_name = this.$route.params.username
