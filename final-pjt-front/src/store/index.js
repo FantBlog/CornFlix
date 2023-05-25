@@ -39,4 +39,4 @@ export default new Vuex.Store({
       context.commit('TOGGLE_HEADER')
     }
   }
-});
+})
