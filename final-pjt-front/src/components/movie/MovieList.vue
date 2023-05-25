@@ -3,7 +3,7 @@
     <h1>{{ this.$route.params.type }} 영화들</h1>
     <ul class="nav nav-tabs mx-5">
       <li class="nav-item">
-        <p class="nav-link" :class="{active:this.$route.params.type === 'recent'}" aria-current="page" @click="typeMove('recent')">Recent</p>
+        <a class="nav-link" :class="{active:this.$route.params.type === 'recent'}" aria-current="page" @click="typeMove('recent')">Recent</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" :class="{active:this.$route.params.type === 'recommend'}" @click="typeMove('recommend')">Recommend</a>
@@ -202,4 +202,5 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

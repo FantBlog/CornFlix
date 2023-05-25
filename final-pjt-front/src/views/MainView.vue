@@ -7,7 +7,7 @@
     <div v-else>
       <div class="scale-up-center">
         <div class="text-container align-items-end">
-          <router-link :to="{ name: 'movies' }">Home</router-link><br>
+          <router-link :to="{ name: 'movies' }">Movies</router-link><br>
         </div>
         <div class="text-container">
           <div v-if="isLogin">

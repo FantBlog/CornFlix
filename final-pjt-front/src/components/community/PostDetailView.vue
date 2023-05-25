@@ -3,7 +3,7 @@
     <!-- <h1 class="mb-4">Detail</h1> -->
     <div class="row justify-content-between">
       <button @click="back" class="back btn btn-outline-dark col-1">〈</button>
-      <div class="btn-group btn-group-sm p-0 col-2" role="group" aria-label="Small button group">
+      <div v-if="post.user.username === $store.state.user.username" class="btn-group btn-group-sm p-0 col-2" role="group" aria-label="Small button group">
         <button type="button" @click="putPost" class="btn btn-warning">수정</button>
         <button type="button" @click="deletePostDetail" class="btn btn-danger">삭제</button>
         <!-- 삭제 전에 정말 삭제하시겠습니까? 창 띄우기 -->

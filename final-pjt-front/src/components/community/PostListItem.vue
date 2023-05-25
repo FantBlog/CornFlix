@@ -1,12 +1,12 @@
 <template>
   <div class="list-item-wrap">
+    <hr>
     <router-link :to="{
       name: 'DetailPostView',
       params: {id: post.id }}">
       <div class="post-list-item">
         <h4 class="text-start">{{ post.title }}</h4>
         <p class="post-item-content text-start">{{ post.content }}</p>
-        <!-- <p>{{ post.user.username }}</p> -->
       </div>
     </router-link>
   </div>
@@ -41,5 +41,6 @@ a{
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;  
+  font-size: 18px;
 }
 </style>
