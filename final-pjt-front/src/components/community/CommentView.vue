@@ -11,7 +11,7 @@
           <div class="row accordion-body">
             <div class="col mb-3">
               <div class="input-group">
-                <input type="text" class="form-control custom-input" v-model="comment_content" placeholder="댓글 추가...">
+                <input @keyup.enter="createComment" type="text" class="form-control custom-input" v-model="comment_content" placeholder="댓글 추가...">
                 <button class="btn btn-primary" @click="createComment">댓글</button>
               </div>
             </div>

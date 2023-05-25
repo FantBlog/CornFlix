@@ -1,10 +1,7 @@
 <template>
   <div class="container-lg p-0">
-
-
     <div class="profile">
     <div class="header bg-warning"></div>
-
     <div class="content">
       <div style="display: flex; align-items: center;">
         <div class="img-container">
@@ -19,7 +16,6 @@
         </button>
         <button v-else @click="toggleProfile" class="ms-auto btn btn-primary">프로필 수정</button>
       </div>
-
       <p style="text-align: center;">{{ profile.content }}</p>
     </div>
   </div>
