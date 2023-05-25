@@ -12,6 +12,7 @@
       :post="post"
       />
     </div>
+    <br>
   </div>
 </template>
 

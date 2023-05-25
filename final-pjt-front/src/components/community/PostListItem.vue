@@ -4,9 +4,9 @@
       name: 'DetailPostView',
       params: {id: post.id }}">
       <div class="post-list-item">
+        <hr>
         <h4 class="text-start">{{ post.title }}</h4>
         <p class="post-item-content text-start">{{ post.content }}</p>
-        <!-- <p>{{ post.user.username }}</p> -->
       </div>
     </router-link>
   </div>
