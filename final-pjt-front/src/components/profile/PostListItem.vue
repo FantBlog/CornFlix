@@ -1,14 +1,6 @@
 <template>
   <div class="row" @click="goToDetailPage">
-    <div class="col">
-      <p>{{ post.id }}</p>
-    </div>
-    <div class="col">
-      <p>{{ post.title }}</p>
-    </div>
-    <div class="col">
-      <p>작성시간 : {{ post.created_at }}</p>
-    </div>
+    <div class="post-list-item p-2">{{ post.title }}</div>
   </div>
 </template>
   
@@ -26,4 +18,9 @@ export default {
 }
 </script>
   
-<style scoped></style>
+<style scoped>
+.post-list-item:hover{
+  background-color: rgb(90, 90, 90);
+  border-radius: 10px;
+}
+</style>
