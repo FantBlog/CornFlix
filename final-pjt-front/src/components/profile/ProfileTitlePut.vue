@@ -20,19 +20,18 @@
           </div>
         </div>
         <div class="img-container">
-          <div id="follow" class="d-flex align-items-center justify-content-between">
-            <div class="ml-2">
+          <div class="d-flex align-items-center justify-content-between">
+            <div style="margin-left: 10px;">
               <h3 style="text-align: left;">{{ profile.username }}</h3>
               <p class="me-2 mb-0">팔로워: {{ profile.user_followers_count }} 팔로잉: {{ profile.followings_count }}</p>
             </div>
-            <button v-if="!isCurrentUser" @click="toggleFollow" class="ms-auto btn btn-primary">
-              {{ isFollowing ? '언팔로우' : '팔로우' }}
-            </button>
-            <button v-else @click="toggleProfile" class="ms-auto btn btn-primary">수정 취소</button>
+            <div class="btn-group">
+              <button @click="uploadImage" class="btn btn-primary">수정</button>
+              <button @click="toggleProfile" class="ms-auto btn btn-dark">취소</button>
+            </div>
           </div>
+          <input type="text" v-model="content">
         </div>
-        <input type="text" v-model="content">
-        <button @click="uploadImage">[수정하기]</button>
       </div>
     </div>
   </div>
@@ -46,6 +45,9 @@ export default {
       content: "",
       inputimage: null,
     }
+  },
+  created() {
+    this.content = this.profile.content;
   },
   computed: {
     isCurrentUser() {
@@ -131,4 +133,13 @@ export default {
   /* 반투명한 배경색 */
   z-index: 1;
 }
+
+input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    font-size: 16px;
+  }
 </style>

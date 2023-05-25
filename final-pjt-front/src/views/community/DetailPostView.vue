@@ -1,8 +1,10 @@
 <template>
-  <div class="post-detail-box">
+  <div class="container">
+    <br>
     <DetailPost :post="post"/>
     <br>
     <Comment :post="post"/>
+    <br>
   </div>
 </template>
 
@@ -35,9 +37,4 @@ export default {
 </script>
 
 <style scoped>
-.post-detail-box {
-  /* border: 1px solid white; */
-  padding: 20px;
-  width: 70vw;
-}
 </style>

@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="container">
+    <br>
     <postList></postList>
   </div>
 </template>

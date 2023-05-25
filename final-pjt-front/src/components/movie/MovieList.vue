@@ -3,7 +3,7 @@
     <h1>{{ this.$route.params.type }} 영화들</h1>
     <ul class="nav nav-tabs mx-5">
       <li class="nav-item">
-        <p class="nav-link" :class="{active:this.$route.params.type === 'recent'}" aria-current="page" @click="typeMove('recent')">Recent</p>
+        <a class="nav-link" :class="{active:this.$route.params.type === 'recent'}" aria-current="page" @click="typeMove('recent')">Recent</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" :class="{active:this.$route.params.type === 'recommend'}" @click="typeMove('recommend')">Recommend</a>
@@ -25,7 +25,10 @@
     <nav aria-label="Page navigation">
       <ul class="pagination justify-content-center mb-0">
         <li class="page-item" v-if="page > 1">
-          <a class="page-link" @click="goPage(page - 10)"><span aria-hidden="true">&laquo;</span></a>
+          <a class="page-link" @click="goPage(1)"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        <li class="page-item" v-if="page > 1">
+          <a class="page-link" @click="goPage(page - 10)"><span aria-hidden="true">&lt;</span></a>
         </li>
         <li class="page-item" v-if="page > lastpage - 4">
           <p class="page-link" @click="goPage(page - 9)">{{ page - 9 }}</p>
@@ -82,7 +85,10 @@
           <p class="page-link" @click="goPage(page + 8)">{{ page + 8 }}</p>
         </li>
         <li class="page-item" v-if="page !== lastpage">
-          <p class="page-link" @click="goPage(page + 10)"><span aria-hidden="true">&raquo;</span></p>
+          <p class="page-link" @click="goPage(page + 10)"><span aria-hidden="true">&gt;</span></p>
+        </li>
+        <li class="page-item" v-if="page !== lastpage">
+          <p class="page-link" @click="goPage(lastpage)"><span aria-hidden="true">&raquo;</span></p>
         </li>
       </ul>
     </nav>
@@ -202,4 +208,5 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>
