@@ -4,6 +4,7 @@
     <div class="text-end">
       <button @click="createPost" class="btn btn-warning">글 작성하러 가기</button>
     </div>
+    <br>
     <div>
       <PostListItem 
       v-for="post in posts" 
