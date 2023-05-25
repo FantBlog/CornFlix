@@ -1,10 +1,10 @@
 <template>
   <div class="list-item-wrap">
+    <hr>
     <router-link :to="{
       name: 'DetailPostView',
       params: {id: post.id }}">
       <div class="post-list-item">
-        <hr>
         <h4 class="text-start">{{ post.title }}</h4>
         <p class="post-item-content text-start">{{ post.content }}</p>
       </div>
