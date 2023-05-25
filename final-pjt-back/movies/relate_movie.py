@@ -39,12 +39,12 @@ def get_relate_movies(title):
     # 유사도에 따라 영화들을 정렬한다.
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
 
-    # 가장 유사한 10개의 영화를 받아온다.
-    sim_scores = sim_scores[1:11]
+    # 가장 유사한 15개의 영화를 받아온다.
+    sim_scores = sim_scores[1:16]
 
-    # 가장 유사한 10개의 영화의 인덱스를 얻는다.
+    # 가장 유사한 15개의 영화의 인덱스를 얻는다.
     movie_indices = [idx[0] for idx in sim_scores]
 
-    # 가장 유사한 10개의 영화의 제목을 리턴한다.
+    # 가장 유사한 15개의 영화의 제목을 리턴한다.
     result = list(map(lambda x: title_to_index[str(x)], movie_indices))
     return result
