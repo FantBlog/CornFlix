@@ -47,6 +47,18 @@ export default {
   box-sizing: border-box;
 }
 
+/* 리뷰, 댓글 */
+/* 접혀있는 아코디언 스타일 */
+.accordion-button:not(.collapsed) {
+  background-color: #151515;
+  color: white;
+}
+/* 열려있는 아코디언 스타일 */
+.accordion-button.collapsed {
+  background-color: black;
+  color: white;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
 </style>

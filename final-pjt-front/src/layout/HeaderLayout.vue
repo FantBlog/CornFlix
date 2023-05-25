@@ -3,9 +3,9 @@
     <div class="container-fluid">
       <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-          <router-link :to="{ name: 'main' }" class="navbar-brand">
-            <img src="@/assets/popcorn/logo.png" alt="Logo" height="40" class="d-inline-block align-text-top">
-          </router-link>
+          <router-link :to="isLogin ? { name: 'movies' } : { name: 'main' }" class="navbar-brand">
+          <img src="@/assets/popcorn/logo.png" alt="Logo" height="40" class="d-inline-block align-text-top">
+        </router-link>
         </div>
       </nav>
       <div v-if="!isLogin">

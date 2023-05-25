@@ -42,4 +42,11 @@ const fetchRelateMovies = function ({ movie_id }) {
   })
 }
 
-export { fetchRecentMovies, fetchDetailMovie, fetchRecommendMovies, fetchRelateMovies, fetchGenreMovies, fetchTypeMovies };
+const fetchLikeMovies = function ({ movie_id }) {
+  return api({
+    method: 'post',
+    url: `/movies/${movie_id}/like/`,
+  })
+}
+
+export { fetchRecentMovies, fetchDetailMovie, fetchRecommendMovies, fetchRelateMovies, fetchGenreMovies, fetchTypeMovies, fetchLikeMovies };
