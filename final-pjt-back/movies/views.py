@@ -144,7 +144,7 @@ def recommend_movie_list(request, page):
 
             size = min(3, len(likegenres))
             genres = likegenres[0:size]
-            movie = Movie.objects.filter(genres__in=genres)
+            movie = Movie.objects.filter(genres__in=genres).distinct()
 
             serializer = MovieListSerializer(
                 movie.order_by("-score")[pagenum + 1 : pagenum + 16], many=True
@@ -152,7 +152,7 @@ def recommend_movie_list(request, page):
 
             response = {
                 "movies": serializer.data,
-                "total_length": len(Movie.objects.filter(genres__in=genres)),
+                "total_length": len(Movie.objects.filter(genres__in=genres).distinct()),
             }
             return Response(response, status=status.HTTP_200_OK)
 
