@@ -74,17 +74,4 @@ export default {
 </script>
 
 <style scoped>
-.movie-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.movie-list-item {
-  width: calc(20% - 20px);
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  text-align: center;
-  cursor: pointer;
-}
 </style>

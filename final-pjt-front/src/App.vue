@@ -66,6 +66,23 @@ export default {
   color: white;
 }
 
+
+a {
+  color: white;
+  text-decoration: none;
+}
+a:hover{
+  color: rgb(255, 200, 0);
+}
+
+a.nav-link {
+  color: white;
+}
+a.nav-link:hover {
+  color: rgb(255, 200, 0);
+}
+
+
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
 </style>
