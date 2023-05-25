@@ -37,7 +37,7 @@ export default {
         .then((res) => {
           context.commit('SAVE_TOKEN', res)
           context.commit('SAVE_USERNAME', username)
-          router.push({ name: 'main' })
+          router.push({ name: 'movies' })
         })
         .catch(() => {
           Swal.fire({
@@ -55,7 +55,7 @@ export default {
         .then((res) => {
           context.commit('SAVE_TOKEN', res.data.key)
           context.commit('SAVE_USERNAME', username)
-          router.push({ name: 'main' })
+          router.push({ name: 'movies' })
         })
         .catch(() => {
           Swal.fire({
@@ -69,6 +69,5 @@ export default {
       context.commit('SAVE_TOKEN', null)
       context.commit('SAVE_USERNAME', '')
     },
-
   },
 }

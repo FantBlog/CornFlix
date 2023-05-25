@@ -1,43 +1,92 @@
 <template>
   <div>
-    <div v-if="modifyreview">
-      <img :src="profileImage" alt="" class="img-thumbnail rounded-circle float-start">
-      <div class="d-flex"><p class="star">{{ stars }}</p><p class="darkstar">{{ darkstar }}</p></div>
-      <div class="d-flex justify-content-between">
-        <router-link :to="{
-          name: 'profile',
-          params: {username: review.user.username }}">
-          {{review.user.username}}
-        </router-link>
-        <p>{{ review.content }}
-          <button class="btn btn-outline-secondary" @click="setmodify">[수정]</button>
-          <button class="btn btn-outline-secondary" @click="deleteReview">[삭제]</button>
-        </p>
-      </div>
-    </div>
-    <div v-else>
-      <img :src="profileImage" alt="" class="img-thumbnail rounded-circle float-start">
-      <form id="myform" @submit="ratestar">
-        <fieldset>
-          <input type="radio" v-model="selectedOption" name="rating" value="5" :id="'rate1'+review.id"><label :for="'rate1'+review.id">⭐</label>
-          <input type="radio" v-model="selectedOption" name="rating" value="4" :id="'rate2'+review.id"><label :for="'rate2'+review.id">⭐</label>
-          <input type="radio" v-model="selectedOption" name="rating" value="3" :id="'rate3'+review.id"><label :for="'rate3'+review.id">⭐</label>
-          <input type="radio" v-model="selectedOption" name="rating" value="2" :id="'rate4'+review.id"><label :for="'rate4'+review.id">⭐</label>
-          <input type="radio" v-model="selectedOption" name="rating" value="1" :id="'rate5'+review.id"><label :for="'rate5'+review.id">⭐</label>
-        </fieldset>
-      </form>
-      <div class="d-flex justify-content-between">
-        <p style="margin-right:20px;">{{ review.user.username }}</p>
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" v-model="review_content" :placeholder="review.content" :aria-label="review.content" aria-describedby="button-addon2">
-          <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="setmodify">[취소]</button>
-          <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="putReview(review.id)">[완료]</button>
+    <hr>
+    <div v-if="modifyreview" class="mt-3">
+      <div class="row">
+        <div class="col-md-2">
+          <img :src="profileImage" alt="" class="img-thumbnail rounded-circle">
+          <router-link :to="{ name: 'profile', params: { username: review.user.username }}">
+            {{ review.user.username }}
+          </router-link>
+        </div>
+        <div class="col-md-10">
+          <div class="row justify-content-between">
+            <div class="col-md-4">
+              <div class="d-flex align-items-center">
+                <p class="star" style="display: inline-block;">{{ stars }}</p>
+                <p class="darkstar" style="display: inline-block;">{{ darkstar }}</p>
+              </div>
+            </div>
+            <div class="col text-end">
+              <div v-if="review.user.username === $store.state.user.username" class="dropdown">
+                <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa-solid fa-ellipsis-vertical text-black"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" @click="setmodify">수정</a></li>
+                  <li><a class="dropdown-item" @click="deleteReview(review.id)">삭제</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <p class="col text-start">{{ review.content }}</p>
         </div>
       </div>
     </div>
-  </div>
 
+    <div v-else>
+      <!-- 리뷰 수정 -->
+      <div class="row">
+        <div class="col-md-2">
+          <img :src="profileImage" alt="" class="img-thumbnail rounded-circle">
+          <router-link :to="{ name: 'profile', params: { username: review.user.username }}">
+            {{ review.user.username }}
+          </router-link>
+        </div>
+        <div class="col-md-10">
+          <div class="row justify-content-between">
+            <div class="col-md-4">
+              <div class="d-flex align-items-center">
+                <form id="myform" @submit="ratestar">
+                  <fieldset>
+                    <input type="radio" v-model="selectedOption" name="rating" value="5" :id="'rate1'+review.id"><label :for="'rate1'+review.id">⭐</label>
+                    <input type="radio" v-model="selectedOption" name="rating" value="4" :id="'rate2'+review.id"><label :for="'rate2'+review.id">⭐</label>
+                    <input type="radio" v-model="selectedOption" name="rating" value="3" :id="'rate3'+review.id"><label :for="'rate3'+review.id">⭐</label>
+                    <input type="radio" v-model="selectedOption" name="rating" value="2" :id="'rate4'+review.id"><label :for="'rate4'+review.id">⭐</label>
+                    <input type="radio" v-model="selectedOption" name="rating" value="1" :id="'rate5'+review.id"><label :for="'rate5'+review.id">⭐</label>
+                  </fieldset>
+                </form>
+              </div>
+            </div>
+            <div class="col text-end">
+              <div v-if="review.user.username === $store.state.user.username" class="dropdown">
+                <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa-solid fa-ellipsis-vertical text-black"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" @click="setmodify">수정</a></li>
+                  <li><a class="dropdown-item" @click="deleteReview(review.id)">삭제</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" v-model="review_content" :placeholder="review.content" :aria-label="review.content" aria-describedby="button-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-secondary" @click="setmodify">취소</button>
+              <button class="btn btn-primary" @click="putReview(review.id)">수정</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      
+    </div>
+  </div>
 </template>
+
   
 <script>
 export default {
@@ -85,13 +134,6 @@ export default {
     ratestar(event){
       event.preventDefault()
     },
-    // putReview() {
-    //   const rank = this.review_rank !== '' ? this.review_rank : this.review.rank;
-    //   const content = this.review_content !== '' ? this.review_content : this.review.content;
-    //   const review_id = this.review_id;
-    //   const payload = { rank, content, review_id };
-    //   this.$store.dispatch('putReview', payload);
-    // },
     deleteReview() {
       const payload = { review_id: this.review_id }
       this.$store.dispatch('deleteReview', payload)
@@ -99,21 +141,12 @@ export default {
     setmodify() {
       this.modifyreview = !this.modifyreview
     },
-    // setModify() {
-    //   this.modifyreview = !this.modifyreview
-    //   if (this.modifyreview) {
-    //     this.review_content = this.review.content
-    //     this.review_rank = this.review.rank
-    //   } else {
-    //     this.review_content = ''
-    //     this.review_rank = ''
-    //   }
-    // },
   },
 }
 </script>
   
 <style scoped>
+
 
 .img-thumbnail {
   border-color: transparent;
@@ -122,14 +155,14 @@ export default {
   height: 60px;
 }
 .star{
-    font-size: 1em; /* 이모지 크기 */
+    font-size: 0.7em; /* 이모지 크기 */
     color: transparent; /* 기존 이모지 컬러 제거 */
     text-shadow: 0 0 0 rgb(255, 230, 0); /* 새 이모지 색상 부여 */
 }
 .darkstar{
-    font-size: 1em; /* 이모지 크기 */
-    color: transparent; /* 기존 이모지 컬러 제거 */
-    text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
+    font-size: 0.7em; 
+    color: transparent; 
+    text-shadow: 0 0 0 #f0f0f0; 
 }
 #myform fieldset{
     display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
@@ -139,12 +172,12 @@ export default {
     display: none; /* 라디오박스 감춤 */
 }
 #myform label{
-    font-size: 1em; /* 이모지 크기 */
-    color: transparent; /* 기존 이모지 컬러 제거 */
-    text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
+    font-size: 0.7em; 
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
 }
 #myform label:hover{
-    text-shadow: 0 0 0 rgb(255, 230, 0); /* 마우스 호버 */
+    text-shadow: 0 0 0 rgb(255, 230, 0); 
 }
 #myform label:hover ~ label{
     text-shadow: 0 0 0 rgb(255, 230, 0); /* 마우스 호버 뒤에오는 이모지들 */

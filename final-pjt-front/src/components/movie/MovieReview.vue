@@ -1,29 +1,16 @@
 <template>
-  <div>
-    <div class="accordion m-5" id="accordionExample">
+  <div class="container">
+    <div class="accordion mt-5 mb-5" id="reviewAccordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
-          <button class="accordion-button bg-black" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
             aria-expanded="true" aria-controls="collapseOne">
-            <p>리뷰 총 개수 : {{ review_count }} </p>
+            <p class="m-0">리뷰 총 개수 : {{ review_count }} </p>
           </button>
         </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-          data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <div>
-              <MovieReviewDetail v-for="review in reviews" :key="review.id" :review="review" :review_id="review.id" />
-            </div>
-
-            <div>
-              <!-- <label for="rank">리뷰 Rank:</label>
-              <select v-model="review_rank" id="rank">
-                <option value="1">⭐</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select> -->
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#comentAccordion">
+          <div class="row accordion-body">
+            <div class="col-12 col-md-4">
               <form id="myform" @submit="ratestar">
                 <fieldset>
                   <input type="radio" v-model="selectedOption" name="rating" value="5" id="rate1"><label
@@ -39,13 +26,15 @@
                 </fieldset>
               </form>
             </div>
-
-            <div>
-              <label for="content">리뷰 내용:</label>
-              <input type="text" v-model="review_content" id="content">
+            <div class="col">
+              <div class="input-group">
+                <input type="text" class="form-control custom-input" v-model="review_content"  placeholder="리뷰 추가...">
+                <button class="btn btn-primary" @click="createReview">리뷰</button>
+              </div>
             </div>
-
-            <button @click="createReview">리뷰 작성</button>
+            <div>
+              <MovieReviewDetail v-for="review in reviews" :key="review.id" :review="review" :review_id="review.id" />
+            </div>
           </div>
         </div>
       </div>
@@ -110,7 +99,7 @@ export default {
 }
 
 #myform label {
-  font-size: 2em;
+  font-size: 1em;
   /* 이모지 크기 */
   color: transparent;
   /* 기존 이모지 컬러 제거 */
@@ -145,5 +134,6 @@ export default {
   text-shadow: 0 0 0 rgb(255, 230, 0);
   /* 마우스 클릭 체크 */
 }
+
 </style>
 

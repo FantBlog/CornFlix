@@ -28,13 +28,7 @@
             <button v-if="!isCurrentUser" @click="toggleFollow" class="ms-auto btn btn-primary">
               {{ isFollowing ? '언팔로우' : '팔로우' }}
             </button>
-            <button v-else>
-              <a href="https://getbootstrap.kr/docs/5.2/components/dropdowns/">프로필 수정
-                드롭박스</a>
-              <button @click="toggleProfile">[프로필 수정]</button>
-              <br>
-              <a href="https://getbootstrap.kr/docs/5.2/components/collapse/">리뷰 토글?</a>
-            </button>
+            <button v-else @click="toggleProfile" class="ms-auto btn btn-primary">수정 취소</button>
           </div>
         </div>
         <input type="text" v-model="content">

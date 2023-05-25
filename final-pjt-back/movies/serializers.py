@@ -54,12 +54,18 @@ class MovieDetailSerializer(serializers.ModelSerializer):
                 "name",
                 "pk",
             )
-
+    class UserSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = (
+                "username",
+                "pk",
+            )
     genres = GenreSerializer(many=True)
     review_set = ReviewDetailSerializer(many=True)
     review_count = serializers.IntegerField(source="review_set.count")
     like_users_count = serializers.IntegerField(source="like_users.count")
-
+    like_users = UserSerializer(many=True)
     class Meta:
         model = Movie
         fields = "__all__"

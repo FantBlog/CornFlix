@@ -29,3 +29,10 @@ export default {
   },
 }
 </script>
+
+<style>
+.movie-more{
+  color: white;
+  text-decoration: none;
+}
+</style>

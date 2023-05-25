@@ -3,12 +3,15 @@
     <div class="container-fluid">
       <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-          <router-link :to="{ name: 'main' }" class="navbar-brand">
-            <img src="@/assets/popcorn/logo.png" alt="Logo" height="40" class="d-inline-block align-text-top">
-          </router-link>
+          <router-link :to="isLogin ? { name: 'movies' } : { name: 'main' }" class="navbar-brand">
+          <img src="@/assets/popcorn/logo.png" alt="Logo" height="40" class="d-inline-block align-text-top">
+        </router-link>
         </div>
       </nav>
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
+      <div v-if="!isLogin">
+        <router-link :to="{ name: 'login' }" class="dropdown-item">Login</router-link>
+      </div>
+      <button v-else class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
         aria-controls="offcanvasDarkNavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -30,8 +33,8 @@
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><router-link v-if="!isLogin" :to="{ name: 'login' }" class="dropdown-item">Login</router-link></li>
-                <li><router-link v-if="!isLogin" :to="{ name: 'signup' }" class="dropdown-item">Signup</router-link></li>
+                <!-- <li><router-link v-if="!isLogin" :to="{ name: 'login' }" class="dropdown-item">Login</router-link></li> -->
+                <!-- <li><router-link v-if="!isLogin" :to="{ name: 'signup' }" class="dropdown-item">Signup</router-link></li> -->
                 <li><p v-if="isLogin" @click="logOut" class="dropdown-item">Logout</p></li>
               </ul>
             </li>
@@ -62,7 +65,7 @@ export default {
     logOut(event) {
       event.preventDefault()
       this.$store.dispatch('logOut')
-      this.$router.push({ name: 'movies' })
+      this.$router.push({ name: 'main' })
     }
   },
 };
