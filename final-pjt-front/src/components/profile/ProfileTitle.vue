@@ -1,34 +1,31 @@
 <template>
   <div class="container-lg p-0">
+
+
     <div class="profile">
-      <div class="header bg-warning">
-        <!-- 배경색 선택 가능하도록... -->
-      </div>
-      <div class="content">
+    <div class="header bg-warning"></div>
+
+    <div class="content">
+      <div style="display: flex; align-items: center;">
         <div class="img-container">
-          <img :src="profileImage" alt="" class="img-thumbnail rounded-circle float-start"
-            style="width: 120px; height: 120px;">
-        
-          <div id="follow" class="d-flex align-items-center justify-content-between">
-            <div class="ml-2">
-              <h3 style="text-align: left;">{{ profile.username }}</h3>
-              <p class="me-2 mb-0">팔로워: {{ profile.user_followers_count }} 팔로잉: {{ profile.followings_count }}</p>
-            </div>
-            <button v-if="!isCurrentUser" @click="toggleFollow" class="ms-auto btn btn-primary">
-              {{ isFollowing ? '언팔로우' : '팔로우' }}
-            </button>
-            <button v-else>
-              <a href="https://getbootstrap.kr/docs/5.2/components/dropdowns/">프로필 수정
-                드롭박스</a>
-              <button @click="toggleProfile">[프로필 수정]</button>
-              <br>
-              <a href="https://getbootstrap.kr/docs/5.2/components/collapse/">리뷰 토글?</a>
-            </button>
-          </div>
+          <img :src="profileImage" alt="" class="img-thumbnail rounded-circle float-start" style="width: 120px; height: 120px;">
         </div>
-        <p style="text-align: center;">{{ profile.content }}</p>
+        <div style="margin-left: 10px;">
+          <h3 style="text-align: left;">{{ profile.username }}</h3>
+          <p class="me-2 mb-0">팔로워: {{ profile.user_followers_count }} 팔로잉: {{ profile.followings_count }}</p>
+        </div>
+        <button v-if="!isCurrentUser" @click="toggleFollow" class="ms-auto btn btn-primary">
+          {{ isFollowing ? '언팔로우' : '팔로우' }}
+        </button>
+        <button v-else @click="toggleProfile" class="ms-auto btn btn-primary">프로필 수정</button>
       </div>
+
+      <p style="text-align: center;">{{ profile.content }}</p>
     </div>
+  </div>
+
+
+
   </div>
 </template>
   
